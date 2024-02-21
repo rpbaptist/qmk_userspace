@@ -6,7 +6,7 @@ LTO_ENABLE = yes
 #the appropriate keymap folder that will get included automatically
 #
 EXTRAKEY_ENABLE    = yes  # Audio control and System control(+450)
-NKRO_ENABLE        = yes  # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE        = no  # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 DYNAMIC_MACRO_ENABLE = no
 
 MOUSEKEY_ENABLE    = no   # Mouse keys(+4700)
