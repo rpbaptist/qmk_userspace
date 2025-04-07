@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_ACTIVITY_ENABLE
 #define SPLIT_LAYER_STATE_ENABLE
 
-#define DEBOUNCE 30
+#define DEBOUNCE 25
 
 #ifdef RGB_MATRIX_ENABLE
 // Undefine r2g effects
