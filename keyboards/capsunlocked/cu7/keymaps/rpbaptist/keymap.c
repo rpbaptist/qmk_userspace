@@ -42,61 +42,56 @@ void matrix_scan_user(void) {
 #define RPLAY LCTL(LSFT(KC_S))
 #define SGIF LCTL(LSFT(KC_J))
 
-#define T_MEDIA TT(_MEDIA)
-#define S_MEDIA MO(_MEDIA)
-
-#define T_UTIL TT(_UTIL)
-#define S_UTIL MO(_UTIL)
-
 #define STEAM LSFT(KC_TAB)
+
+void keyboard_post_init_user(void) {
+  rgblight_setrgb(RGB_CYAN);
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_GAME]  = LAYOUT(
         KC_ENTER,
-        KC_GRV, T_MEDIA, T_UTIL,
-        RPLAY,   SGIF,    STEAM
-    ),
+        KC_GRV, TO(_MEDIA), TT(_UTIL),
+        RPLAY, SGIF, STEAM),
     [_MEDIA] = LAYOUT(
         KC_MUTE,
-        _______, S_MEDIA, _______,
-        KC_MPRV, KC_MPLY, KC_MNXT
-    ),
+        KC_MSTP, TO(_GAME), _______,
+        KC_MPRV, KC_MPLY, KC_MNXT),
     [_UTIL]  = LAYOUT(
         UG_TOGG,
-        QK_BOOT, UG_SATU, S_UTIL,
-        UG_NEXT, UG_SATD, UG_VALD
-    ),
+        QK_BOOT, _______, _______,
+        XXXXXXX, XXXXXXX, XXXXXXX),
 };
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (get_highest_layer(layer_state)) {
-    case _GAME:
-        if (clockwise) {
-            if (!alt_tab_active) {
-                alt_tab_active = true;
-                unregister_code(KC_LEFT_SHIFT);
-                register_code(KC_LEFT_ALT);
+        case _GAME:
+            if (clockwise) {
+                if (!alt_tab_active) {
+                    alt_tab_active = true;
+                    unregister_code(KC_LEFT_SHIFT);
+                    register_code(KC_LEFT_ALT);
+                }
+                alt_tab_timer = timer_read();
+                tap_code(KC_TAB);
+            } else {
+                if (!alt_shift_tab_active) {
+                    alt_shift_tab_active = true;
+                    register_code(KC_LEFT_ALT);
+                    register_code(KC_LEFT_SHIFT);
+                }
+                alt_tab_timer = timer_read();
+                tap_code(KC_TAB);
             }
-            alt_tab_timer = timer_read();
-            tap_code(KC_TAB);
-        } else {
-            if (!alt_shift_tab_active) {
-                alt_shift_tab_active = true;
-                register_code(KC_LEFT_ALT);
-                register_code(KC_LEFT_SHIFT);
-            }
-            alt_tab_timer = timer_read();
-            tap_code(KC_TAB);
-        }
-        break;
-    case _MEDIA:
+            break;
+        case _MEDIA:
             if (clockwise) {
                 tap_code_delay(KC_VOLU, 10);
             } else {
                 tap_code_delay(KC_VOLD, 10);
             }
             break;
-    case _UTIL:
+        case _UTIL:
             if (clockwise) {
                 rgblight_increase_hue();
             } else {
@@ -105,4 +100,21 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             break;
     }
     return false;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    uint8_t current_layer = get_highest_layer(state);
+
+    switch (current_layer) {
+        case _GAME:
+            rgblight_setrgb(RGB_CYAN);
+            break;
+        case _MEDIA:
+            rgblight_setrgb(RGB_GREEN);
+            break;
+        case _UTIL:
+            rgblight_setrgb(RGB_RED);
+            break;
+    }
+    return state;
 }
