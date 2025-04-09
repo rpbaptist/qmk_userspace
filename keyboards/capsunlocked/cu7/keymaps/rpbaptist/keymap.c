@@ -39,11 +39,6 @@ void matrix_scan_user(void) {
     }
 };
 
-#define RPLAY LCTL(LSFT(KC_S))
-#define RECORD LCTL(LSFT(KC_E))
-#define SGIF LCTL(LSFT(KC_J))
-
-#define STEAM LSFT(KC_TAB)
 
 void keyboard_post_init_user(void) {
   rgblight_setrgb(RGB_CYAN);

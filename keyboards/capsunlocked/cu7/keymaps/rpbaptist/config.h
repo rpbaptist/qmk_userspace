@@ -12,6 +12,12 @@
 #define PERMISSIVE_HOLD
 #define TAPPING_TERM_PER_KEY
 
+#define RPLAY RCS(KC_S)
+#define RECORD RCS(KC_E)
+#define SGIF RCS(KC_J)
+
+#define STEAM LSFT(KC_TAB)
+
 #define TAP_CODE_DELAY 10
 #define TAPPING_TOGGLE 2
 
@@ -29,7 +35,7 @@
 #undef RGBLIGHT_EFFECT_ALTERNATING
 #undef RGBLIGHT_EFFECT_TWINKLE
 
-#define THEME_HSV 123, 255, 125 // default to PULSE
+#define THEME_HSV 123, 255, 125 
 
 #undef PRODUCT
 #define PRODUCT "CU7"
