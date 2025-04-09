@@ -63,11 +63,11 @@ enum custom_keycodes {
 #define SFT_ENT RSFT_T(KC_ENTER)
 
 // Global tab forward and backward
-#define TAB_FWD LCTL(KC_TAB)
-#define TAB_BCK LCTL(LSFT(KC_TAB))
-#define TAB_CLS LCTL(KC_W)
+#define TAB_FWD C(KC_TAB)
+#define TAB_BCK RCS(KC_TAB)
+#define TAB_CLS C(KC_W)
 
-#define WIN_CLS LALT(KC_F4)
+#define WIN_CLS A(KC_F4)
 
 // €
 #define KC_EUR ALGR(KC_5)
