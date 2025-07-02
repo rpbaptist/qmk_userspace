@@ -135,7 +135,7 @@ void suspend_wakeup_init_keymap(void) {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SFT_ENT:
-            return TAPPING_TERM - 20;
+            return TAPPING_TERM - 40;
         default:
             return TAPPING_TERM;
     }
