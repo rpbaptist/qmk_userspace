@@ -90,11 +90,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_UTIL] = LAYOUT_split_3x6_3( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      QK_BOOT, RGB_RST, XXXXXXX, XXXXXXX, XXXXXXX,  TYPING,                      RGB_ATG, XXXXXXX, XXXXXXX, RGB_IDL, RGB_UND, RGB_TOG,\
+      QK_BOOT, RGB_RST, XXXXXXX, XXXXXXX, XXXXXXX,  TYPING,                      RGB_ATG, XXXXXXX, XXXXXXX, RGB_IDL, RGB_UND, RM_TOGG,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      LCK_NMP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  GAMING,                      RGB_PST, XXXXXXX, RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI,\
+      LCK_NMP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  GAMING,                      RGB_PST, XXXXXXX, RM_SPDU, RM_HUEU, RM_SATU, RM_VALU,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       EE_CLR, KC_SLEP, XXXXXXX, XXXXXXX, XXXXXXX,    WASD,                      RGB_PCT, XXXXXXX, RGB_SPD, RGB_HUD, RGB_SAD, RGB_VAD,\
+       EE_CLR, KC_SLEP, XXXXXXX, XXXXXXX, XXXXXXX,    WASD,                      RGB_PCT, XXXXXXX, RM_SPDD, RM_HUED, RM_SATD, RM_VALD,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,    _______, _______, _______ \
                                       //`--------------------------'  `--------------------------'
