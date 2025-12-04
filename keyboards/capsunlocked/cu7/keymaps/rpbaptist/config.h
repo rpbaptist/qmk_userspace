@@ -12,9 +12,9 @@
 #define PERMISSIVE_HOLD
 #define TAPPING_TERM_PER_KEY
 
-#define RPLAY RSA(KC_RIGHT_BRACKET)
-#define RECORD LSA(KC_LEFT_BRACKET)
-#define SGIF RSA(KC_QUOTE)
+#define RPLAY LCA(KC_X)
+#define RECORD MEH(KC_R)
+#define SGIF MEH(KC_G)
 
 #define STEAM LSFT(KC_TAB)
 
