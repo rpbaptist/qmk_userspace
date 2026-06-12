@@ -100,6 +100,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define THEME_HSV 30, 255, 218
 #        define RGB_MATRIX_TYPING_ACTIVE RGB_MATRIX_TYPING_HEATMAP
 #        define RGB_MATRIX_TYPING_PASSIVE RGB_MATRIX_CYCLE_LEFT_RIGHT
+#    elif defined(THEME_AWAKEN)
+#        define THEME_HSV 170, 255, 180
 #    else
 #        define THEME_HSV 123, 255, 125 // default to PULSE
 #    endif

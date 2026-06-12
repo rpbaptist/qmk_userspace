@@ -56,6 +56,10 @@ ifeq ($(strip $(THEME)), milkshake)
     OPT_DEFS += -DTHEME_MILKSHAKE
 endif
 
+ifeq ($(strip $(THEME)), awaken)
+	OPT_DEFS += -DTHEME_AWAKEN
+endif
+
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
 	SRC += rgb.c
 endif
