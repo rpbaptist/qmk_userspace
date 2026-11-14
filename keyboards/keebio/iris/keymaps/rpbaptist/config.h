@@ -12,7 +12,6 @@
 // Same timings as the crkbd keymap.
 #define TAPPING_TERM 140
 #define PERMISSIVE_HOLD
-#define TAP_CODE_DELAY 10
 #define TAPPING_TOGGLE 2
 #define NO_ACTION_ONESHOT
 
