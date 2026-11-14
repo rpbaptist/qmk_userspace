@@ -273,7 +273,10 @@ void user_transport_update(void) {
 }
 
 void housekeeping_task_user(void) {
-    matrix_scan_rgb();
+    // The core RGB matrix sync copies the mode from master to the secondary half
+    if (is_keyboard_master()) {
+        matrix_scan_rgb();
+    }
 
     // Update config to slave
     user_transport_update();
