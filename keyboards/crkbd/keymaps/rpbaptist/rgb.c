@@ -52,7 +52,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_
     }
 }
 
-extern user_config_t user_config;
+user_config_t user_config;
 
 bool rgb_matrix_in_idle(void) {
     return (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == user_config.rgb_matrix_idle_mode);
