@@ -88,10 +88,6 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     return false;
 }
 
-void rgb_matrix_turn_off_underglow(void) {
-    rgb_matrix_layer_helper(0, 0, 0, 0, 54);
-}
-
 uint8_t rgb_matrix_speed_for_mode(uint8_t mode) {
     switch (mode) {
         case RGB_MATRIX_SOLID_REACTIVE_SIMPLE:
@@ -191,11 +187,6 @@ void rgb_matrix_toggle_color_passive_mode(void) {
 
 void rgb_matrix_toggle_underglow_layer_indicator(void) {
     user_config.rgb_layer_indicator ^= 1;
-    if (user_config.rgb_layer_indicator) {
-        layer_state_set(layer_state); // This is needed to immediately set the layer color (looks better)
-    } else {
-        rgb_matrix_turn_off_underglow();
-    }
 }
 
 void rgb_matrix_toggle_idle_animation_change(void) {
@@ -236,9 +227,6 @@ void rgb_matrix_set_defaults(void) {
 
 void matrix_scan_rgb(void) {
     if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == user_config.rgb_matrix_active_mode && last_input_activity_elapsed() > user_config.rgb_matrix_idle_timeout) {
-        if (user_config.rgb_layer_indicator) {
-            rgb_matrix_turn_off_underglow();
-        }
         rgb_matrix_update_current_mode(user_config.rgb_matrix_idle_mode);
     }
 }
@@ -290,9 +278,6 @@ bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t* record) {
     if (user_config.rgb_matrix_idle_anim) {
         if (rgb_matrix_get_mode() == user_config.rgb_matrix_idle_mode) {
             rgb_matrix_update_current_mode(user_config.rgb_matrix_active_mode);
-            if (!user_config.rgb_layer_indicator) {
-                rgb_matrix_turn_off_underglow();
-            }
         }
     }
 
