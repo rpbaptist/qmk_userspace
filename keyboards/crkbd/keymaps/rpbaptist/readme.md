@@ -40,7 +40,7 @@ Sometimes I switch to type in Discord, Steam, or in game chat, so I think it's m
 
 I put movement on FRST (would be ESDF on QWERTY), because it lines up more comfortably with the columnar staggered layout of the Corne. It also gives more easy access to all keys on left half.
 
-Most notable here is that there are no tap and hold differences anymore on left hand side besides the new layer key. This is a different layer than `SYM`.
+Most notable here is that there are no tap and hold differences on the left hand side. The left thumb keys are ALT, `SFT_EXT` and SPACE. `SFT_EXT` sends SHIFT immediately on press, so there is no delay when you hold it. Double tap it to activate `GAMING_EXT` for the next key only. This is a different layer than `SYM`.
 
 ### WASD
 
@@ -48,7 +48,9 @@ This is functionally the same as the `GAMING` layer, but uses traditional WASD l
 
 ### GAMING_EXT
 
-This is the gaming extended layer. I moved this to most inner thumb instead of mid thumb position. Num row is now moved to the home row. Besides that it gives me an ENTER key which does not switch. This is good when a game requires you to hold ENTER.
+This is the gaming extended layer. It is a one-shot layer: double tap `SFT_EXT` and the next key comes from this layer. Num row is now moved to the home row. Besides that it gives me an ENTER key which does not switch. This is good when a game requires you to hold ENTER.
+
+To reach `UTIL` from a gaming layer, first hold `NAV`, then double tap `SFT_EXT`.
 
 ## RGB
 
