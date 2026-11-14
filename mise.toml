@@ -1,0 +1,6 @@
+[env]
+# paths.mk sets BUILD_DIR with :=, so only a command-line variable overrides it.
+# make reads command-line variables from MAKEFLAGS. Each checkout and worktree
+# then builds in its own .build, and wt remove deletes it with the worktree.
+# get_env keeps flags that are already set, such as -j.
+MAKEFLAGS = "{{ get_env(name=\"MAKEFLAGS\", default=\"\") }} BUILD_DIR={{config_root}}/.build"
