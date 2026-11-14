@@ -279,20 +279,8 @@ void housekeeping_task_user(void) {
     user_transport_update();
 }
 
-void eeconfig_init_user(void) {
-    user_config.raw                  = 0;
-    user_config.rgb_layer_indicator  = true;
-    user_config.rgb_matrix_idle_anim = true;
-
-    rgb_matrix_enable();
-    rgb_matrix_sethsv(THEME_HSV);
-    rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE_SIMPLE);
-
-    eeconfig_update_user(user_config.raw);
-}
-
 void keyboard_post_init_user(void) {
-    set_single_persistent_default_layer(_COLEMAKDH);
+    default_layer_set(1U << _COLEMAKDH);
     rgb_matrix_set_defaults();
 
     // Register user config sync
