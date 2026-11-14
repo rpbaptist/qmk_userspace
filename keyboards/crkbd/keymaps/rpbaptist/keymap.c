@@ -126,23 +126,17 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    static uint8_t saved_mods   = 0;
-    uint16_t       temp_keycode = keycode;
+    static uint8_t saved_mods = 0;
 
 #ifdef RGB_MATRIX_ENABLE
-    process_record_user_rgb_matrix(temp_keycode, record);
+    process_record_user_rgb_matrix(keycode, record);
 #endif
 
     if (!process_sft_ext(keycode, record)) {
         return false;
     }
 
-    // Filter out the actual keycode from MT and LT keys.
-    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
-        temp_keycode &= 0xFF;
-    }
-
-    switch (temp_keycode) {
+    switch (keycode) {
         case BSP_DEL:
             if (record->event.pressed) {
                 saved_mods = get_mods() & MOD_MASK_SHIFT;
