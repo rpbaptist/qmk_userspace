@@ -114,24 +114,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-void suspend_power_down_keymap(void) {
-#ifdef OLED_ENABLE
-    oled_off();
-#endif
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_set_suspend_state(true);
-#endif
-}
-
-void suspend_wakeup_init_keymap(void) {
-#ifdef OLED_ENABLE
-    oled_on();
-#endif
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_set_suspend_state(false);
-#endif
-}
-
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case T_NAV:
