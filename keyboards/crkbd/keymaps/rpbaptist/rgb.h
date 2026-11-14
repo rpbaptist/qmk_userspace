@@ -19,6 +19,7 @@ typedef union {
 extern user_config_t user_config;
 
 _Static_assert(sizeof(user_config_t) == sizeof(uint32_t), "Userspace EECONFIG out of spec.");
+_Static_assert(RGB_MATRIX_EFFECT_MAX <= 16, "RGB mode does not fit in 4 bits");
 
 const char *rgb_matrix_anim_oled_text(uint8_t mode);
 void        rgb_matrix_set_gaming_defaults(void);
