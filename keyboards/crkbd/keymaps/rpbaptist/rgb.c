@@ -273,7 +273,11 @@ void user_transport_update(void) {
 }
 
 void housekeeping_task_user(void) {
-    matrix_scan_rgb();
+    // Only master changes the RGB mode.
+    // RGB_MATRIX_SPLIT copies the mode to the slave half.
+    if (is_keyboard_master()) {
+        matrix_scan_rgb();
+    }
 
     // Update config to slave
     user_transport_update();
