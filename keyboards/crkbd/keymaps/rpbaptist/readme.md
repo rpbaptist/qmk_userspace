@@ -64,6 +64,20 @@ I took a big inspiration from Drashna's RGB configuration and tweaked it.
 - `RGB_PST`: Cycles through three passive modes: `RGB_MATRIX_SOLID_COLOR` -> `RGB_MATRIX_BREATHING` -> `RGB_MATRIX_CYCLE_ALL`
 - `RGB_PCT`: Cycles through two, more colorful, passive modes: `RGB_MATRIX_RAINBOW_PINWHEELS` -> `RGB_MATRIX_CYCLE_LEFT_RIGHT`
 
+## Timings
+
+`DEBOUNCE 20` with `asym_eager_defer_pk`. A press sends at once. A release
+sends only after the switch stays open for 20 ms, so a bounce cannot send a
+false release and press.
+
+Before this, the keymap used `sym_eager_pk`. With 15 ms, switch bounce on
+this hot-swap board toggled QWERTY on and off again. Values up to 35 ms
+stopped the chatter, but made each tap at least 35 ms long and the shortest
+`SFT_EXT` double tap about 70 ms.
+
+If chatter comes back, check the hot-swap sockets of the keys that chatter
+before you raise `DEBOUNCE`.
+
 ## Building
 
 `qmk flash -bl dfu -kb crkbd -km rpbaptist`
