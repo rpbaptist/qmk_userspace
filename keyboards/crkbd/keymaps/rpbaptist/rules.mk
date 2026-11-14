@@ -36,6 +36,8 @@ OLED_ENABLE = yes
 
 DEBOUNCE_TYPE = sym_eager_pk
 
+SRC += sft_ext.c
+
 ifeq ($(strip $(THEME)), godspeed)
     OPT_DEFS += -DTHEME_GODSPEED
 endif

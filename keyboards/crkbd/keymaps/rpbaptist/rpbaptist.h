@@ -5,6 +5,7 @@
 #include QMK_KEYBOARD_H
 
 #include "quantum.h"
+#include "sft_ext.h"
 
 #if defined(RGB_MATRIX_ENABLE)
 #    include "rgb.h"

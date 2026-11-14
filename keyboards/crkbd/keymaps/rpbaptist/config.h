@@ -112,6 +112,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAP_CODE_DELAY 10
 #define TAPPING_TOGGLE 2
+#define ONESHOT_TIMEOUT 1000 // Cancel a one-shot GAMING_EXT that is not used
 
 #ifdef OLED_ENABLE
 #    define SPLIT_OLED_ENABLE

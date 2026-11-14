@@ -40,7 +40,7 @@ Sometimes I switch to type in Discord, Steam, or in game chat, so I think it's m
 
 I put movement on FRST (would be ESDF on QWERTY), because it lines up more comfortably with the columnar staggered layout of the Corne. It also gives more easy access to all keys on left half.
 
-Most notable here is that there are no tap and hold differences on the left hand side. The left thumb keys are ALT, `SFT_EXT` and SPACE. `SFT_EXT` sends SHIFT immediately on press, so there is no delay when you hold it. Double tap it to activate `GAMING_EXT` for the next key only. This is a different layer than `SYM`.
+Most notable here is that there are no tap and hold differences on the left hand side. The left thumb keys are ALT, `SFT_EXT` and SPACE. `SFT_EXT` sends SHIFT immediately on press, so there is no delay when you hold it. Double tap it to activate `GAMING_EXT` for the next key only: the second tap sends no SHIFT. Tap and hold to keep `GAMING_EXT` on while held. Press it once more to cancel and return to the base layer. An unused one-shot layer turns off after 1 second. This is a different layer than `SYM`.
 
 ### WASD
 

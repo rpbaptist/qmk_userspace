@@ -143,42 +143,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-// SFT_EXT sends SHIFT at once on press, so there is no delay when it is held.
-// Two short taps with no other key between them turn on GAMING_EXT for the
-// next key only.
-static bool process_sft_ext(uint16_t keycode, keyrecord_t *record) {
-    static uint16_t press_time   = 0;
-    static uint16_t release_time = 0;
-    static bool     interrupted  = true;
-    static bool     tapped_once  = false;
-
-    if (keycode != SFT_EXT) {
-        if (record->event.pressed) {
-            interrupted = true;
-            tapped_once = false;
-        }
-        return true;
-    }
-
-    if (record->event.pressed) {
-        register_code(KC_LSFT);
-        press_time  = record->event.time;
-        interrupted = false;
-    } else {
-        unregister_code(KC_LSFT);
-        bool is_tap = !interrupted && TIMER_DIFF_16(record->event.time, press_time) < TAPPING_TERM;
-        if (is_tap && tapped_once && TIMER_DIFF_16(press_time, release_time) < TAPPING_TERM) {
-            set_oneshot_layer(_GAMING_EXT, ONESHOT_START);
-            clear_oneshot_layer_state(ONESHOT_PRESSED);
-            tapped_once = false;
-        } else {
-            tapped_once = is_tap;
-        }
-        release_time = record->event.time;
-    }
-    return false;
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint8_t saved_mods   = 0;
     uint16_t       temp_keycode = keycode;
