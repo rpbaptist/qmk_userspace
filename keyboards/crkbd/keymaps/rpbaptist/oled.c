@@ -20,8 +20,6 @@ void render_crkbd_logo(void) {
     oled_write_P(crkbd_logo, false);
 }
 
-user_config_t user_config;
-
 void render_status(void) {
     switch (get_highest_layer(default_layer_state)) {
         case _COLEMAKDH:
