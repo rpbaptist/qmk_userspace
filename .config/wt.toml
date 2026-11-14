@@ -1,3 +1,4 @@
 # mise does not load mise.toml in a new worktree until the path is trusted.
+# Skip on a machine without mise, so that wt switch --create does not fail.
 [pre-start]
-mise-trust = "mise trust --quiet mise.toml"
+mise-trust = "if command -v mise >/dev/null; then mise trust --quiet mise.toml; fi"

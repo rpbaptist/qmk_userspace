@@ -16,4 +16,4 @@ compile_commands.json
 .cache/
 
 # Per-checkout build output (mise.toml)
-.build/
+/.build/
