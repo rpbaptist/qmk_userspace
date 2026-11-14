@@ -21,9 +21,8 @@ matrix scan.
 ### COLEMAK
 
 Default layer. The letters are in the same positions as my crkbd `GAMING`
-layer. I type in Discord, Steam or in-game chat, so typing must keep working.
-This means I rebind keys in all games. Movement is on FRST (ESDF on QWERTY),
-which also gives easy access to the keys around it.
+layer, so the key bindings I use in games work on both keyboards. Movement is
+on FRST (ESDF on QWERTY), which also gives easy access to the keys around it.
 
 ESC is to the left of `1`. Grave (and tilde with SHIFT) is in the old ESC
 position.
@@ -31,8 +30,8 @@ position.
 ### QWERTY
 
 Same as the crkbd `WASD` layer: QWERTY, moved one column to the right so
-WASD sits under the same fingers as FRST. I use this for games where I do not
-type and want to start without rebinding everything.
+WASD sits under the same fingers as FRST. I use this for games where I want to
+start without rebinding everything.
 
 To toggle it, hold `EXTALT` and press the top-left key. QWERTY is not saved:
 the pad always starts in Colemak.
