@@ -118,15 +118,10 @@ void rgb_matrix_update_current_mode(uint8_t mode) {
 }
 
 void rgb_matrix_update_dynamic_mode(uint8_t mode) {
-    uint8_t speed;
-    speed = rgb_matrix_speed_for_mode(mode);
-
     if (rgb_matrix_mode_active(mode)) {
-        user_config.rgb_matrix_active_speed = speed;
-        user_config.rgb_matrix_active_mode  = mode;
+        user_config.rgb_matrix_active_mode = mode;
     } else {
-        user_config.rgb_matrix_idle_speed = speed;
-        user_config.rgb_matrix_idle_mode  = mode;
+        user_config.rgb_matrix_idle_mode = mode;
     }
 }
 

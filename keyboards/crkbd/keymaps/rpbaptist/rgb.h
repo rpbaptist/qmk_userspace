@@ -12,8 +12,6 @@ typedef union {
         bool     rgb_matrix_idle_anim : 1;
         uint8_t  rgb_matrix_active_mode : 4;
         uint8_t  rgb_matrix_idle_mode : 4;
-        uint8_t  rgb_matrix_active_speed : 2;
-        uint8_t  rgb_matrix_idle_speed : 2;
         uint32_t rgb_matrix_idle_timeout : 18;
     };
 } user_config_t;
