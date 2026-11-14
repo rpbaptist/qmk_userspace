@@ -48,7 +48,7 @@ This is functionally the same as the `GAMING` layer, but uses traditional WASD l
 
 ### GAMING_EXT
 
-This is the gaming extended layer. It is a one-shot layer: double tap `SFT_EXT` and the next key comes from this layer. Num row is now moved to the home row. Besides that it gives me an ENTER key which does not switch. This is good when a game requires you to hold ENTER.
+This is the gaming extended layer. It is a one-shot layer: double tap `SFT_EXT` and the next key comes from this layer. Num row is now moved to the home row. The bottom row has `H I J K L` and the inner left thumb has `M`, the same letters as on my Iris pad. The right thumb gives an ENTER key which does not switch. This is good when a game requires you to hold ENTER.
 
 To reach `UTIL` from a gaming layer, first hold `NAV`, then double tap `SFT_EXT`.
 
