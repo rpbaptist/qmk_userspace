@@ -9,7 +9,7 @@ enum layer_names {
     _GAMING_EXT,
 };
 
-#define EXTALT LT(_GAMING_EXT, KC_LALT)
+#define EXT MO(_GAMING_EXT)
 #define T_QWERT TG(_QWERTY)
 
 // Only the left half is connected. The right half stays empty.
@@ -22,9 +22,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤
       KC_TAB,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐
-      KC_LCTL,   KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,  KC_ENT,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      KC_LCTL,   KC_Z,    KC_X,    KC_C,    KC_D,    KC_V, KC_LSFT,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘
-                                      EXTALT, KC_LSFT,  KC_SPC,       XXXXXXX, XXXXXXX, XXXXXXX
+                                     KC_LALT,     EXT,  KC_SPC,       XXXXXXX, XXXXXXX, XXXXXXX
   //                                └────────┴────────┴────────┘
   ),
 
@@ -38,9 +38,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤
       KC_TAB,    KC_G,    KC_A,    KC_S,    KC_D,    KC_F,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐
-      KC_LCTL,   KC_B,    KC_Z,    KC_X,    KC_C,    KC_V,  KC_ENT,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      KC_LCTL,   KC_B,    KC_Z,    KC_X,    KC_C,    KC_V, KC_LSFT,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘
-                                      EXTALT, KC_LSFT,  KC_SPC,       XXXXXXX, XXXXXXX, XXXXXXX
+                                     KC_LALT,     EXT,  KC_SPC,       XXXXXXX, XXXXXXX, XXXXXXX
   //                                └────────┴────────┴────────┘
   ),
 
@@ -48,13 +48,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┐
       T_QWERT,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┤
-      _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      KC_LGUI,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_LALT,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      KC_CAPS,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐
-      KC_CAPS, KC_LBRC, KC_RBRC, KC_BSLS,    KC_J,    KC_M,  KC_F11,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       KC_ENT,    KC_H,    KC_I,    KC_J,    KC_K,    KC_L,    KC_M,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘
-                                     _______, _______,  KC_ENT,       XXXXXXX, XXXXXXX, XXXXXXX
+                                     _______, _______, _______,       XXXXXXX, XXXXXXX, XXXXXXX
   //                                └────────┴────────┴────────┘
   ),
 };
@@ -90,6 +90,7 @@ void keyboard_post_init_user(void) {
 #    endif
     set_layer_color(layer_state);
 }
+
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     set_layer_color(state);

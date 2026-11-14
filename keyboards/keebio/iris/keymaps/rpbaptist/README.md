@@ -1,9 +1,9 @@
 # Iris gamepad
 
 I use the left half of an Iris rev2 alone as a gaming pad. The right half is
-not connected. My daily driver is a crkbd, so this keymap copies the gaming
-layers and the key timings of my crkbd keymap. I can play on either keyboard
-without remapping keys in games.
+not connected. My daily driver is a crkbd, so this keymap uses the letter
+positions and the debounce of my crkbd gaming layers. I can play on either
+keyboard without remapping keys in games.
 
 ## Hardware
 
@@ -18,29 +18,70 @@ matrix scan.
 
 ## Layers
 
+The inner key is the key above the thumb row. ▽ means that the key from the
+layer below is used.
+
 ### COLEMAK
 
 Default layer. The letters are in the same positions as my crkbd `GAMING`
 layer, so the key bindings I use in games work on both keyboards. Movement is
 on FRST (ESDF on QWERTY), which also gives easy access to the keys around it.
 
-ESC is to the left of `1`. Grave (and tilde with SHIFT) is in the old ESC
-position.
+```
+┌──────┬──────┬──────┬──────┬──────┬──────┐
+│ ESC  │  1   │  2   │  3   │  4   │  5   │
+├──────┼──────┼──────┼──────┼──────┼──────┤
+│  `   │  Q   │  W   │  F   │  P   │  B   │
+├──────┼──────┼──────┼──────┼──────┼──────┤
+│ TAB  │  A   │  R   │  S   │  T   │  G   │
+├──────┼──────┼──────┼──────┼──────┼──────┼──────┐
+│ CTRL │  Z   │  X   │  C   │  D   │  V   │SHIFT │
+└──────┴──────┴──────┴─┬────┴─┬────┴─┬────┴─┬────┘
+                       │ ALT  │ EXT  │SPACE │
+                       └──────┴──────┴──────┘
+```
 
 ### QWERTY
 
 Same as the crkbd `WASD` layer: QWERTY, moved one column to the right so
 WASD sits under the same fingers as FRST. I use this for games where I want to
-start without rebinding everything.
+start without rebinding everything. All keys that are not letters are the
+same as on `COLEMAK`.
 
-To toggle it, hold `EXTALT` and press the top-left key. QWERTY is not saved:
-the pad always starts in Colemak.
+```
+┌──────┬──────┬──────┬──────┬──────┬──────┐
+│ ESC  │  1   │  2   │  3   │  4   │  5   │
+├──────┼──────┼──────┼──────┼──────┼──────┤
+│  `   │  T   │  Q   │  W   │  E   │  R   │
+├──────┼──────┼──────┼──────┼──────┼──────┤
+│ TAB  │  G   │  A   │  S   │  D   │  F   │
+├──────┼──────┼──────┼──────┼──────┼──────┼──────┐
+│ CTRL │  B   │  Z   │  X   │  C   │  V   │SHIFT │
+└──────┴──────┴──────┴─┬────┴─┬────┴─┬────┴─┬────┘
+                       │ ALT  │ EXT  │SPACE │
+                       └──────┴──────┴──────┘
+```
+
+To toggle it, hold `EXT` and press the top-left key (`T_QWERT`). QWERTY is
+not saved: the pad always starts in Colemak.
 
 ### GAMING_EXT
 
-Hold the left thumb key `EXTALT` (tap for ALT). This layer has `6`-`0` on the
-number row, F1-F11, ALT, CAPS LOCK, `[ ] \` and `J M`. The right thumb key is
-an ENTER that does not change layers, for games where you must hold ENTER.
+Hold `EXT` (second thumb key). It is a layer key only: a tap sends nothing.
+
+```
+┌──────┬──────┬──────┬──────┬──────┬──────┐
+│T_QWRT│  6   │  7   │  8   │  9   │  0   │
+├──────┼──────┼──────┼──────┼──────┼──────┤
+│ GUI  │  F1  │  F2  │  F3  │  F4  │  F5  │
+├──────┼──────┼──────┼──────┼──────┼──────┤
+│ CAPS │  F6  │  F7  │  F8  │  F9  │ F10  │
+├──────┼──────┼──────┼──────┼──────┼──────┼──────┐
+│ ENT  │  H   │  I   │  J   │  K   │  L   │  M   │
+└──────┴──────┴──────┴─┬────┴─┬────┴─┬────┴─┬────┘
+                       │  ▽   │ [EXT]│  ▽   │
+                       └──────┴──────┴──────┘
+```
 
 ## RGB
 
@@ -52,9 +93,9 @@ The underglow shows the active layer:
 
 ## Timings
 
-Same as the crkbd: `TAPPING_TERM 140` with `PERMISSIVE_HOLD`, and
-`DEBOUNCE 35` with `sym_eager_pk`. A low debounce value let switch bounce
-toggle QWERTY on and off again.
+Same as the crkbd: `DEBOUNCE 35` with `sym_eager_pk`. A low debounce value
+let switch bounce toggle QWERTY on and off again. The keymap also sets
+`TAPPING_TERM 140` with `PERMISSIVE_HOLD`, but no key uses tap-hold now.
 
 ## Building
 
