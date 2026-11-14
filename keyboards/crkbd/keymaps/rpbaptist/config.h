@@ -110,7 +110,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PERMISSIVE_HOLD
 #define TAPPING_TERM_PER_KEY
 
-#define TAP_CODE_DELAY 10
 #define TAPPING_TOGGLE 2
 #define ONESHOT_TIMEOUT 1000 // Cancel a one-shot GAMING_EXT that is not used
 
