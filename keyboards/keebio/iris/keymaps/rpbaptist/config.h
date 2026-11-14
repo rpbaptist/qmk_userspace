@@ -9,10 +9,14 @@
 #define SPLIT_MAX_CONNECTION_ERRORS 1
 #define SPLIT_CONNECTION_CHECK_TIMEOUT 60000
 
+// Same timings as the crkbd keymap.
 #define TAPPING_TERM 140
 #define PERMISSIVE_HOLD
+#define TAP_CODE_DELAY 10
+#define TAPPING_TOGGLE 2
+#define NO_ACTION_ONESHOT
 
-#define DEBOUNCE 5
+#define DEBOUNCE 35
 
 // Rev2 has no handedness pin. The left half is always the USB side.
 #define MASTER_LEFT
