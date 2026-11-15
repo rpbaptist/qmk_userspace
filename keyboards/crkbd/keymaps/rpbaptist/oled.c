@@ -21,7 +21,7 @@ void render_status(void) {
     oled_write_P(layer_display[get_highest_layer(default_layer_state)].label, false);
     oled_write_P(newline, false);
     uint8_t layer = get_highest_layer(layer_state);
-    oled_write_P(layer < _GAMING_EXT ? PSTR("     ") : layer_display[layer].label, false);
+    oled_write_P(layer < BASE_LAYER_COUNT ? PSTR("     ") : layer_display[layer].label, false);
     oled_write_P(newline, false);
 
     uint8_t modifiers = get_mods();

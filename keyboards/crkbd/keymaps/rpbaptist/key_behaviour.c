@@ -59,7 +59,7 @@ static bool process_sft_ext(uint16_t keycode, keyrecord_t *record) {
 // One row for each base layer. The first row is the boot default. Each row is
 // at the index of its layer, so the tri-layer rule reads its row with no
 // search. Because of this, the base layers must be the first entries of
-// layer_names, before _GAMING_EXT.
+// layer_names (BASE_LAYER_COUNT).
 typedef struct {
     uint8_t  layer;
     uint16_t keycode;   // Selects the layer
@@ -80,7 +80,7 @@ static const base_layer_t base_layers[] = {
     [_GAMING]    = {.layer = _GAMING, .keycode = GAMING, .tri_lower = _GAMING_EXT, BASE_PROFILE(rgb_effect_gaming_profile)},
     [_WASD]      = {.layer = _WASD, .keycode = WASD, .tri_lower = _GAMING_EXT, BASE_PROFILE(rgb_effect_gaming_profile)},
 };
-_Static_assert(ARRAY_SIZE(base_layers) == _GAMING_EXT, "Each layer before _GAMING_EXT needs a base_layers row");
+_Static_assert(ARRAY_SIZE(base_layers) == BASE_LAYER_COUNT, "Each base layer needs a base_layers row");
 
 static const base_layer_t *base_layer_by_keycode(uint16_t keycode) {
     for (const base_layer_t *base = base_layers; base < base_layers + ARRAY_SIZE(base_layers); base++) {

@@ -29,6 +29,9 @@ enum layer_names {
   _UTIL
 };
 
+// The base layers are the first entries of layer_names.
+#define BASE_LAYER_COUNT _GAMING_EXT
+
 enum custom_keycodes {
     BSP_DEL = SAFE_RANGE,
     RGB_RST, // Reset RGB
