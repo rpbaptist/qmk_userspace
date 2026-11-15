@@ -11,13 +11,14 @@ extern "C" {
 using testing::_;
 
 // Columns of row 0 in the test keymap.
-enum { COL_LEFT, COL_NAV, COL_TYPING, COL_GAMING, COL_WASD, COL_LCK_NMP, COL_COUNT };
+// COL_OTHER holds the lower layer of the other tri-layer pair.
+enum { COL_LEFT, COL_NAV, COL_TYPING, COL_GAMING, COL_WASD, COL_LCK_NMP, COL_OTHER, COL_COUNT };
 
 class Layers : public TestFixture {
    protected:
     void SetUp() override {
-        const uint16_t base[COL_COUNT]   = {MO(_SYM), MO(_NAV), TYPING, GAMING, WASD, LCK_NMP};
-        const uint16_t gaming[COL_COUNT] = {MO(_GAMING_EXT), MO(_NAV), TYPING, GAMING, WASD, LCK_NMP};
+        const uint16_t base[COL_COUNT]   = {MO(_SYM), MO(_NAV), TYPING, GAMING, WASD, LCK_NMP, MO(_GAMING_EXT)};
+        const uint16_t gaming[COL_COUNT] = {MO(_GAMING_EXT), MO(_NAV), TYPING, GAMING, WASD, LCK_NMP, MO(_SYM)};
         set_keymap({});
         for (uint8_t col = 0; col < COL_COUNT; col++) {
             add_key(KeymapKey(_COLEMAKDH, col, 0, base[col]));
@@ -59,6 +60,15 @@ class Layers : public TestFixture {
         EXPECT_FALSE(layer_state_is(_UTIL));
         release(COL_LEFT);
     }
+
+    // Hold the lower layer of the other pair and NAV, check no UTIL, release.
+    void expect_no_util_from_other_and_nav() {
+        press(COL_OTHER);
+        press(COL_NAV);
+        EXPECT_FALSE(layer_state_is(_UTIL));
+        release(COL_NAV);
+        release(COL_OTHER);
+    }
 };
 
 TEST_F(Layers, SymAndNavGiveUtilOnTyping) {
@@ -66,6 +76,32 @@ TEST_F(Layers, SymAndNavGiveUtilOnTyping) {
     EXPECT_NO_REPORT(driver);
 
     expect_util_from_left_and_nav();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(Layers, GamingExtAndNavGiveNoUtilOnTyping) {
+    TestDriver driver;
+    EXPECT_NO_REPORT(driver);
+
+    expect_no_util_from_other_and_nav();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(Layers, SymAndNavGiveNoUtilOnGaming) {
+    TestDriver driver;
+    EXPECT_NO_REPORT(driver);
+
+    default_layer_set(1UL << _GAMING);
+    expect_no_util_from_other_and_nav();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(Layers, SymAndNavGiveNoUtilOnWasd) {
+    TestDriver driver;
+    EXPECT_NO_REPORT(driver);
+
+    default_layer_set(1UL << _WASD);
+    expect_no_util_from_other_and_nav();
     VERIFY_AND_CLEAR(driver);
 }
 
@@ -112,6 +148,16 @@ TEST_F(Layers, WasdSelectsWasdBase) {
 
     tap(COL_WASD);
     EXPECT_EQ(get_highest_layer(default_layer_state), _WASD);
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(Layers, BootSelectsColemakBase) {
+    TestDriver driver;
+    EXPECT_NO_REPORT(driver);
+
+    default_layer_set(1UL << _WASD);
+    keyboard_post_init_user();
+    EXPECT_EQ(get_highest_layer(default_layer_state), _COLEMAKDH);
     VERIFY_AND_CLEAR(driver);
 }
 
