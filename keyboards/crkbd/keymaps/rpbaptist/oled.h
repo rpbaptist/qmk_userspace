@@ -5,4 +5,5 @@
 
 #include "oled_driver.h"
 
-void render_crkbd_logo(void);
+
+void oled_render_logo(void); // Weak default from keyboards/crkbd/crkbd.c
