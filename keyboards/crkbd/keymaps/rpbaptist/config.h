@@ -97,6 +97,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define SPLIT_OLED_ENABLE
 #    define OLED_TIMEOUT 60000 * 10
 #    define OLED_FONT_H "glcdfont_multi.c"
+#    define OLED_FONT_START 0x20
+#    define OLED_FONT_END 0xD4
 #endif
 
 #undef PRODUCT
