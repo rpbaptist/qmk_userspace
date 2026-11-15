@@ -1,7 +1,7 @@
 // Copyright 2026 Richard Baptist (@rpbaptist)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-// Key behaviour: the QMK input hooks of the crkbd keymap. The firmware and
+// Key behaviour: the QMK hooks of the crkbd keymap. The firmware and
 // the host tests (tests/crkbd_keys) link this file.
 
 #include "rpbaptist.h"

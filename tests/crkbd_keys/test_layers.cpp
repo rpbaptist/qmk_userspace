@@ -11,8 +11,8 @@ extern "C" {
 using testing::_;
 
 // Columns of row 0 in the test keymap.
-// COL_WRONG_LOWER holds the lower layer of the tri-layer pair of the other base
-// layers.
+// COL_WRONG_LOWER holds the tri-layer lower layer that must not give UTIL:
+// _GAMING_EXT on _COLEMAKDH, _SYM on _GAMING and _WASD.
 enum { COL_LEFT, COL_NAV, COL_TYPING, COL_GAMING, COL_WASD, COL_LCK_NMP, COL_WRONG_LOWER, COL_COUNT };
 
 class Layers : public TestFixture {
