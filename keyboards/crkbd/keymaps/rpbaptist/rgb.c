@@ -98,8 +98,7 @@ void housekeeping_task_user(void) {
     user_transport_update();
 }
 
-void keyboard_post_init_user(void) {
-    default_layer_set(1U << _COLEMAKDH);
+void keyboard_post_init_user_rgb_matrix(void) {
     rgb_matrix_set_defaults();
 
     // Register user config sync

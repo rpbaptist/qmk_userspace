@@ -9,7 +9,7 @@ The crkbd has three base layers: TYPING (Colemak-DH), GAMING (Colemak-DH with pl
 - `tri-gaming`: GAMING_EXT + NAV gives UTIL on GAMING and WASD.
 - `numpad-lock`: `LCK_NMP` locks NUMPAD on. A second tap unlocks it.
 - `rgb-indicator`: the underglow colour follows the layer (yellow SYM, spring green NAV, pink UTIL, coral NUMPAD, purple GAMING_EXT, red GAMING and WASD).
-- `boot-default`: after a power cycle, the base layer is TYPING.
+- `boot-default`: after a power cycle, the base layer is TYPING, with RGB on and with RGB off.
 
 ## How to get to it (user POV)
 
@@ -21,20 +21,27 @@ The crkbd has three base layers: TYPING (Colemak-DH), GAMING (Colemak-DH with pl
 Preconditions:
 
 - `qmk_firmware/tests` has no `rpbaptist_crkbd_keys` directory.
-- Source: `layer_state_set_user` and `process_record_user` in `keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`. Test: `tests/crkbd_keys/test_layers.cpp`.
+- Source: `keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`. The `base_layers` table has one row for each base layer: select key, tri-layer lower layer and RGB profile. The hooks `process_record_user`, `layer_state_set_user` and `keyboard_post_init_user` read it.
+- Test: `tests/crkbd_keys/test_layers.cpp`.
 - Hardware steps only: the firmware under test is on the keyboard (refer to [hardware-flash.md](./hardware-flash.md)).
 - Hardware steps only: the underglow layer indicator is on (`RGB_UND` toggles it).
 
-- **Host test.** Run `.claude/skills/verify/scripts/run-test.sh crkbd_keys 'Layers.*'`. Output ends with `[  PASSED  ] 7 tests.` and `status=0`.
+- **Host test.** Run `.claude/skills/verify/scripts/run-test.sh crkbd_keys 'Layers.*'`. Output ends with `[  PASSED  ] 11 tests.` and `status=0`.
 
   | Sub-feature | Test |
   | --- | --- |
   | `base-select` | `TypingSelectsColemakBase`, `GamingSelectsGamingBase`, `WasdSelectsWasdBase` |
-  | `tri-typing` | `SymAndNavGiveUtilOnTyping` |
-  | `tri-gaming` | `GamingExtAndNavGiveUtilOnGaming`, `GamingExtAndNavGiveUtilOnWasd` |
+  | `tri-typing` | `SymAndNavGiveUtilOnTyping`, `GamingExtAndNavGiveNoUtilOnTyping` |
+  | `tri-gaming` | `GamingExtAndNavGiveUtilOnGaming`, `GamingExtAndNavGiveUtilOnWasd`, `SymAndNavGiveNoUtilOnGaming`, `SymAndNavGiveNoUtilOnWasd` |
+  | `boot-default` | `BootSelectsColemakBase` |
   | `numpad-lock` | `LckNmpTogglesNumpadLock` |
 
-- **Test catches defects.** Remove `case _WASD:` from `layer_state_set_user` in `key_behaviour.c`. Run the host test. `GamingExtAndNavGiveUtilOnWasd` fails. Restore with `git checkout -- keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`.
+- **Test catches defects.** Make these changes in `key_behaviour.c`:
+  - Change `.tri_lower` of the `_COLEMAKDH` row to `_GAMING_EXT`.
+  - Change `.tri_lower` of the `_GAMING` row and of the `_WASD` row to `_SYM`.
+  - In `keyboard_post_init_user`, change `base_layers[0]` to `base_layers[1]`.
+
+  Run the host test. All 7 tri-layer and boot tests fail (the `tri-typing`, `tri-gaming` and `boot-default` rows of the table above). Restore with `git checkout -- keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`.
 - **Build.** Run `.claude/skills/verify/scripts/build-all.sh crkbd`. Shows `OK`.
 - **Select GAMING.** Ask the user to hold SYM + NAV and press `GAMING`. The OLED shows `GAME` and the underglow is red.
 - **Tri-layer in GAMING.** Ask the user to hold `SFT_EXT` after a tap (GAMING_EXT on), then hold NAV. The OLED shows `Util` and the underglow is pink.
@@ -44,6 +51,6 @@ Preconditions:
 
 ## Gotchas
 
-- The host test does not cover `rgb-indicator`, the OLED or `boot-default`. The host build has no RGB matrix and no OLED, and `boot-default` needs a power cycle.
+- The host test does not cover `rgb-indicator` or the OLED. The host build has no RGB matrix and no OLED. `BootSelectsColemakBase` calls `keyboard_post_init_user` directly. It does not do a power cycle.
 - During RGB idle, the underglow shows the animation, not the layer colour. Press a key first.
 - The OLED that shows layers is the master half (the half with the USB cable).

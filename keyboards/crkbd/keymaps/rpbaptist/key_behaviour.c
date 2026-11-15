@@ -1,7 +1,7 @@
 // Copyright 2026 Richard Baptist (@rpbaptist)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-// Key behaviour: the QMK input hooks of the crkbd keymap. The firmware and
+// Key behaviour: the QMK hooks of the crkbd keymap. The firmware and
 // the host tests (tests/crkbd_keys) link this file.
 
 #include "rpbaptist.h"
@@ -56,17 +56,61 @@ static bool process_sft_ext(uint16_t keycode, keyrecord_t *record) {
     return false;
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(default_layer_state)) {
-        case _COLEMAKDH:
-            state = update_tri_layer_state(state, _SYM, _NAV, _UTIL);
-            break;
-        case _GAMING:
-        case _WASD:
-            state = update_tri_layer_state(state, _GAMING_EXT, _NAV, _UTIL);
-            break;
+// One row for each base layer. The first row is the boot default. Each row is
+// at the index of its layer, so the tri-layer rule reads its row with no
+// search. Because of this, the base layers must be the first entries of
+// layer_names, before _GAMING_EXT.
+typedef struct {
+    uint8_t  layer;
+    uint16_t keycode;   // Selects the layer
+    uint8_t  tri_lower; // With _NAV, gives _UTIL
+#ifdef RGB_MATRIX_ENABLE
+    const rgb_effect_profile_t *profile;
+#endif
+} base_layer_t;
+
+#ifdef RGB_MATRIX_ENABLE
+#    define BASE_PROFILE(p) .profile = &(p)
+#else
+#    define BASE_PROFILE(p)
+#endif
+
+static const base_layer_t base_layers[] = {
+    [_COLEMAKDH] = {.layer = _COLEMAKDH, .keycode = TYPING, .tri_lower = _SYM, BASE_PROFILE(rgb_effect_typing_profile)},
+    [_GAMING]    = {.layer = _GAMING, .keycode = GAMING, .tri_lower = _GAMING_EXT, BASE_PROFILE(rgb_effect_gaming_profile)},
+    [_WASD]      = {.layer = _WASD, .keycode = WASD, .tri_lower = _GAMING_EXT, BASE_PROFILE(rgb_effect_gaming_profile)},
+};
+_Static_assert(ARRAY_SIZE(base_layers) == _GAMING_EXT, "Each layer before _GAMING_EXT needs a base_layers row");
+
+static const base_layer_t *base_layer_by_keycode(uint16_t keycode) {
+    for (const base_layer_t *base = base_layers; base < base_layers + ARRAY_SIZE(base_layers); base++) {
+        if (base->keycode == keycode) {
+            return base;
+        }
     }
-    return state;
+    return NULL;
+}
+
+static void select_base_layer(const base_layer_t *base) {
+#ifdef RGB_MATRIX_ENABLE
+    rgb_effect_set_profile(base->profile);
+#endif
+    set_single_default_layer(base->layer);
+}
+
+void keyboard_post_init_user(void) {
+    set_single_default_layer(base_layers[0].layer);
+#ifdef RGB_MATRIX_ENABLE
+    keyboard_post_init_user_rgb_matrix();
+#endif
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    uint8_t layer = get_highest_layer(default_layer_state);
+    if (layer >= ARRAY_SIZE(base_layers)) {
+        return state;
+    }
+    return update_tri_layer_state(state, base_layers[layer].tri_lower, _NAV, _UTIL);
 }
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
@@ -81,8 +125,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    static uint8_t saved_mods = 0;
-
 #ifdef RGB_MATRIX_ENABLE
     process_record_user_rgb_matrix(keycode, record);
 #endif
@@ -91,10 +133,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
+    const base_layer_t *base = base_layer_by_keycode(keycode);
+    if (base) {
+        if (record->event.pressed) {
+            select_base_layer(base);
+        }
+        return true;
+    }
+
     switch (keycode) {
         case BSP_DEL:
             if (record->event.pressed) {
-                saved_mods = get_mods() & MOD_MASK_SHIFT;
+                uint8_t saved_mods = get_mods() & MOD_MASK_SHIFT;
 
                 if (saved_mods == MOD_MASK_SHIFT) { // Two SHIFT keys: send SHIFT + DEL
                     register_code(KC_DEL);
@@ -110,30 +160,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_BSPC);
             }
             return false;
-        case TYPING:
-            if (record->event.pressed) {
-#ifdef RGB_MATRIX_ENABLE
-                rgb_effect_set_profile(&rgb_effect_typing_profile);
-#endif
-                default_layer_set(1U << _COLEMAKDH);
-            }
-            return true;
-        case GAMING:
-            if (record->event.pressed) {
-#ifdef RGB_MATRIX_ENABLE
-                rgb_effect_set_profile(&rgb_effect_gaming_profile);
-#endif
-                default_layer_set(1U << _GAMING);
-            }
-            return true;
-        case WASD:
-            if (record->event.pressed) {
-#ifdef RGB_MATRIX_ENABLE
-                rgb_effect_set_profile(&rgb_effect_gaming_profile);
-#endif
-                default_layer_set(1U << _WASD);
-            }
-            return true;
         case LCK_NMP:
             if (record->event.pressed) {
                 layer_lock_invert(_NUMPAD);
