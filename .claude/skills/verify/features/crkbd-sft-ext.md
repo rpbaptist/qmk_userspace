@@ -21,9 +21,20 @@
 Preconditions:
 
 - `qmk_firmware/tests` has no `rpbaptist_crkbd_keys` directory.
-- Source: `process_sft_ext` in `keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`. Test: `tests/crkbd_keys/test_sft_ext.cpp`. The tests go through the real `process_record_user`. Each test name in `SftExt.*` is the same as a sub-feature above.
+- Source: `process_sft_ext` in `keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`. Test: `tests/crkbd_keys/test_sft_ext.cpp`. The tests go through the real `process_record_user`.
 
 - **All behaviours.** Run `.claude/skills/verify/scripts/run-test.sh crkbd_keys 'SftExt.*'`. Output ends with `[  PASSED  ] 7 tests.` and `status=0`.
+
+  | Sub-feature | Test |
+  | --- | --- |
+  | `sft-hold` | `HoldSendsShiftAtOnce` |
+  | `ext-oneshot` | `DoubleTapSkipsShiftAndArmsOneShotExt` |
+  | `ext-hold` | `TapThenHoldKeepsExtWhileHeld` |
+  | `ext-cancel` | `PressWhileExtActiveCancelsAndSendsShift` |
+  | `ext-timeout` | `UnusedExtTimesOut` |
+  | `ext-slow` | `SlowSecondTapSendsShiftAgain` |
+  | `ext-interrupt` | `ShiftedKeyDoesNotStartDoubleTap` |
+
 - **One behaviour.** Run `.claude/skills/verify/scripts/run-test.sh crkbd_keys 'SftExt.UnusedExtTimesOut'`. One test runs.
 - **Test catches defects.** Change `if (!interrupted) {` in `key_behaviour.c` to `if (false) {`. Run the test. `DoubleTapSkipsShiftAndArmsOneShotExt`, `PressWhileExtActiveCancelsAndSendsShift` and `UnusedExtTimesOut` fail (3 tests). `TapThenHoldKeepsExtWhileHeld` passes, because its key press sets `interrupted`. Restore with `git checkout -- keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`.
 - **Firmware also builds.** Run `.claude/skills/verify/scripts/build-all.sh crkbd`. Shows `OK` and `warnings=0`.

@@ -1,6 +1,6 @@
 # crkbd layers
 
-The crkbd has three base layers: TYPING (Colemak-DH), GAMING (Colemak-DH with plain modifiers) and WASD (QWERTY positions shifted one column). The user selects them on the UTIL layer. UTIL is a tri-layer: SYM + NAV on TYPING, or GAMING_EXT + NAV on GAMING and WASD. `LCK_NMP` on UTIL locks NUMPAD on and off. The OLED and the underglow show the active layer.
+The crkbd has three base layers: TYPING (Colemak-DH), GAMING (Colemak-DH with plain modifiers) and WASD (QWERTY; on the left half, T, G and B move to the first letter column and the other letters move one column to the right). The user selects them on the UTIL layer. UTIL is a tri-layer: SYM + NAV on TYPING, or GAMING_EXT + NAV on GAMING and WASD. `LCK_NMP` on UTIL locks NUMPAD on and off. The OLED and the underglow show the active layer.
 
 ## Sub-features
 
@@ -13,7 +13,8 @@ The crkbd has three base layers: TYPING (Colemak-DH), GAMING (Colemak-DH with pl
 
 ## How to get to it (user POV)
 
-- Hold SYM and NAV (the two middle thumbs, between ALT/GUI and the SHIFT thumbs) to reach UTIL. Press `TYPING`, `GAMING` or `WASD` in the right column of the left half.
+- On TYPING, hold SYM and NAV (the two middle thumbs, between ALT/GUI and the SHIFT thumbs) to reach UTIL. Press `TYPING`, `GAMING` or `WASD` in the right column of the left half.
+- On GAMING and WASD, the left middle thumb is `SFT_EXT`. Tap it, hold it (GAMING_EXT on), then hold NAV to reach UTIL.
 
 ## Driving it with run-test.sh and the keyboard
 

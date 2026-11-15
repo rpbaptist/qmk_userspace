@@ -1,6 +1,6 @@
 # crkbd BSP_DEL key
 
-`BSP_DEL` is the top right key on the TYPING layer. A tap sends BACKSPACE. With one SHIFT held, it sends DEL without SHIFT. With both SHIFT keys held, it sends SHIFT + DEL.
+`BSP_DEL` is the top right key on the TYPING layer. A tap sends BACKSPACE. With one SHIFT held, it sends DEL without SHIFT. With both SHIFT keys held, it sends SHIFT + DEL. GAMING and WASD have a plain BACKSPACE at that position, and GAMING_EXT has DEL.
 
 ## Sub-features
 
