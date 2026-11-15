@@ -36,7 +36,7 @@ OLED_ENABLE = yes
 
 DEBOUNCE_TYPE = asym_eager_defer_pk
 
-SRC += sft_ext.c
+SRC += key_behaviour.c
 
 ifeq ($(strip $(THEME)), godspeed)
     OPT_DEFS += -DTHEME_GODSPEED
