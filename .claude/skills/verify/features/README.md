@@ -37,6 +37,6 @@ Each feature file starts with an H1 title and one paragraph that describes the u
 
 - [Firmware build](./firmware-build.md): each keymap compiles with no warnings and fits in flash.
 - [crkbd SFT_EXT key](./crkbd-sft-ext.md): gaming thumb key, SHIFT on hold, one-shot GAMING_EXT on double tap. Host-tested.
-- [crkbd BSP_DEL key](./crkbd-bsp-del.md): SHIFT + BACKSPACE gives DEL. Hardware only.
-- [crkbd layers](./crkbd-layers.md): TYPING, GAMING and WASD base layers, and tri-layer UTIL. Hardware only.
+- [crkbd BSP_DEL key](./crkbd-bsp-del.md): SHIFT + BACKSPACE gives DEL. Host-tested.
+- [crkbd layers](./crkbd-layers.md): TYPING, GAMING and WASD base layers, tri-layer UTIL, and NUMPAD lock. Host-tested, except `rgb-indicator`, the OLED and `boot-default`.
 - [Hardware flash](./hardware-flash.md): put a build on the keyboard and get the user's check.

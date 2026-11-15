@@ -18,11 +18,13 @@ trap 'rm -rf "$stage"' EXIT
 cp -r "$src" "$stage"
 
 ev=$(new_evidence_dir "test-$name")
+elf="$BUILD_DIR/test/rpbaptist_$name.elf"
+# A failed build leaves the old .elf. Delete it, so that only a new build runs.
+rm -f "$elf"
 set +e
 make -C "$QMK_HOME" "test:rpbaptist_$name" QMK_USERSPACE="$USERSPACE" COLOR=false \
     GTEST_FILTER="$filter" >"$ev/build.log" 2>&1
 status=$?
-elf="$BUILD_DIR/test/rpbaptist_$name.elf"
 if [[ -x $elf ]]; then
     "$elf" --gtest_color=no --gtest_filter="$filter" --gtest_output="xml:$ev/result.xml" >"$ev/test.log" 2>&1
     status=$?

@@ -20,12 +20,12 @@
 
 Preconditions:
 
-- `qmk_firmware/tests` has no `rpbaptist_crkbd_sft_ext` directory.
-- Source: `keyboards/crkbd/keymaps/rpbaptist/sft_ext.c`. Test: `tests/crkbd_sft_ext/test_sft_ext.cpp`. Each test name in `SftExt.*` is the same as a sub-feature above.
+- `qmk_firmware/tests` has no `rpbaptist_crkbd_keys` directory.
+- Source: `process_sft_ext` in `keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`. Test: `tests/crkbd_keys/test_sft_ext.cpp`. The tests go through the real `process_record_user`. Each test name in `SftExt.*` is the same as a sub-feature above.
 
-- **All behaviours.** Run `.claude/skills/verify/scripts/run-test.sh crkbd_sft_ext`. Output ends with `[  PASSED  ] 7 tests.` and `status=0`.
-- **One behaviour.** Run `.claude/skills/verify/scripts/run-test.sh crkbd_sft_ext 'SftExt.UnusedExtTimesOut'`. One test runs.
-- **Test catches defects.** Change `if (!interrupted) {` in `sft_ext.c` to `if (false) {`. Run the test. `DoubleTapSkipsShiftAndArmsOneShotExt`, `PressWhileExtActiveCancelsAndSendsShift` and `UnusedExtTimesOut` fail (3 tests). `TapThenHoldKeepsExtWhileHeld` passes, because its key press sets `interrupted`. Restore with `git checkout -- keyboards/crkbd/keymaps/rpbaptist/sft_ext.c`.
+- **All behaviours.** Run `.claude/skills/verify/scripts/run-test.sh crkbd_keys 'SftExt.*'`. Output ends with `[  PASSED  ] 7 tests.` and `status=0`.
+- **One behaviour.** Run `.claude/skills/verify/scripts/run-test.sh crkbd_keys 'SftExt.UnusedExtTimesOut'`. One test runs.
+- **Test catches defects.** Change `if (!interrupted) {` in `key_behaviour.c` to `if (false) {`. Run the test. `DoubleTapSkipsShiftAndArmsOneShotExt`, `PressWhileExtActiveCancelsAndSendsShift` and `UnusedExtTimesOut` fail (3 tests). `TapThenHoldKeepsExtWhileHeld` passes, because its key press sets `interrupted`. Restore with `git checkout -- keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`.
 - **Firmware also builds.** Run `.claude/skills/verify/scripts/build-all.sh crkbd`. Shows `OK` and `warnings=0`.
 - **Proof.** Quote the gtest result line and give the evidence path (`test.log`, `result.xml`).
 
@@ -33,5 +33,4 @@ Preconditions:
 
 - The test keymap has only the positions that the tests press. If you add a test that presses another position, map it on each layer that can be active. Otherwise the fixture prints `no key is mapped for layer N`.
 - The test uses `TAPPING_TERM` and `ONESHOT_TIMEOUT` from the keymap `config.h`. If those change, the tests follow. Do not hardcode milliseconds.
-- The harness does not run `layer_state_set_user` from `keymap.c`, so it does not cover the tri-layer with `GAMING_EXT` and NAV. That needs the hardware.
 - The harness does not have debounce. On the keyboard, `DEBOUNCE 20` (`asym_eager_defer_pk`) makes very fast taps longer.

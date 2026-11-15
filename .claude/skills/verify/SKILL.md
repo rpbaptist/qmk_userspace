@@ -1,6 +1,6 @@
 ---
 name: verify
-description: Prove changes to this QMK userspace (crkbd, Iris, CU7, Planck, DZ60 keymaps) work. Compiles each keymap and records size and warnings, and runs host-side gtest journeys for keymap logic (crkbd SFT_EXT) in the QMK test harness. Use after any change under keyboards/ or tests/, before you commit, and when the user asks if a keymap builds or behaves correctly.
+description: Prove changes to this QMK userspace (crkbd, Iris, CU7, Planck, DZ60 keymaps) work. Compiles each keymap and records size and warnings, and runs host-side gtest journeys for keymap logic (crkbd key behaviour) in the QMK test harness. Use after any change under keyboards/ or tests/, before you commit, and when the user asks if a keymap builds or behaves correctly.
 ---
 
 # Verify qmk_userspace
@@ -58,19 +58,22 @@ If `rpbaptist_*` directories exist in `qmk_firmware/tests`, a test run is active
 ### Host test
 
 ```bash
-.claude/skills/verify/scripts/run-test.sh crkbd_sft_ext                 # all tests
-.claude/skills/verify/scripts/run-test.sh crkbd_sft_ext 'SftExt.Hold*'  # gtest filter
+.claude/skills/verify/scripts/run-test.sh crkbd_keys                 # all tests
+.claude/skills/verify/scripts/run-test.sh crkbd_keys 'SftExt.Hold*'  # gtest filter
 ```
 
-The script copies `tests/<name>` to `qmk_firmware/tests/rpbaptist_<name>`, because QMK finds tests only as real files there. It runs `make test:rpbaptist_<name>`, writes evidence, and removes the copy on exit. Only one run of a given test at a time: the script stops if the copy already exists.
+The script copies `tests/<name>` to `qmk_firmware/tests/rpbaptist_<name>`, because QMK finds tests only as real files there. It runs `make test:rpbaptist_<name>`, writes evidence, and removes the copy on exit. A failed build gives a non-zero status and runs no test. Only one run of a given test at a time: the script stops if the copy already exists.
 
-To add a host test for new logic:
+The script prints only the last 3 lines of `test.log`. To see each failed test, run `grep '^\[  FAILED' <evidence>/test.log`.
 
-- Put the logic in its own `.c` file that does not need RGB, OLED or the `keymaps` array, as `sft_ext.c` does. The harness cannot link `keymap.c`, `rgb.c` or `oled.c`.
-- Copy `tests/crkbd_sft_ext/`. In `test.mk`, add the `.c` file to `SRC`. Keep `QMK_KEYBOARD_H` and the full-path header defines.
-- Do not add `-I<keymap dir>` to `OPT_DEFS`. The harness then finds the real `keymap.c` in place of its stub and the build fails.
+To add a host test for crkbd key logic:
+
+- Put the logic in `keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`. It holds the QMK input hooks (`process_record_user`, `layer_state_set_user`, `get_tapping_term`). The firmware and `tests/crkbd_keys` link it. The harness cannot link `keymap.c`, `rgb.c` or `oled.c`.
+- Add a `test_*.cpp` file to `tests/crkbd_keys/`. QMK compiles each `.cpp` file in the test directory.
+- Test through the real hooks. Do not define `process_record_user` or another QMK hook in a test.
+- Each fixture sets its own keymap with `set_keymap({...})`, or `set_keymap({})` and then `add_key` in a loop.
 - In the test keymap, map every position that a test presses on each layer that can be active. Use `KC_TRNS` where the real keymap has `_______`. A missing key makes the fixture print `no key is mapped for layer N`.
-- Define `process_record_user` in the test so that it calls the logic, in an `extern "C"` block.
+- Do not add `-I<keymap dir>` to `OPT_DEFS`. The harness then finds the real `keymap.c` in place of its stub and the build fails.
 
 ## Evidence
 

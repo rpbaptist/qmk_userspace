@@ -6,10 +6,6 @@
 
 extern "C" {
 #include CRKBD_RPBAPTIST_H
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    return process_sft_ext(keycode, record);
-}
 }
 
 using testing::_;
