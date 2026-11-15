@@ -8,7 +8,7 @@ The crkbd has three base layers: TYPING (Colemak-DH), GAMING (Colemak-DH with pl
 - `tri-typing`: SYM + NAV gives UTIL on TYPING.
 - `tri-gaming`: GAMING_EXT + NAV gives UTIL on GAMING and WASD.
 - `numpad-lock`: `LCK_NMP` locks NUMPAD on. A second tap unlocks it.
-- `rgb-indicator`: the underglow colour follows the layer (yellow SYM, spring green NAV, pink UTIL, coral NUMPAD, purple GAMING_EXT, red GAMING and WASD).
+- `rgb-indicator`: the layer indicator follows the layer (yellow SYM, spring green NAV, pink UTIL, coral NUMPAD, purple GAMING_EXT, red GAMING and WASD).
 - `boot-default`: after a power cycle, the base layer is TYPING, with RGB on and with RGB off.
 
 ## How to get to it (user POV)
@@ -21,7 +21,7 @@ The crkbd has three base layers: TYPING (Colemak-DH), GAMING (Colemak-DH with pl
 Preconditions:
 
 - `qmk_firmware/tests` has no `rpbaptist_crkbd_keys` directory.
-- Source: `keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`. The `base_layers` table has one row for each base layer: select key, tri-layer lower layer and RGB profile. The hooks `process_record_user`, `layer_state_set_user` and `keyboard_post_init_user` read it. `layer_display.c` has one row for each layer: the OLED label and the underglow colour. `oled.c` and `rgb.c` read it.
+- Source: `keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`. The `base_layers` table has one row for each base layer: select key, tri-layer lower layer and RGB profile. The hooks `process_record_user`, `layer_state_set_user` and `keyboard_post_init_user` read it. `layer_display.c` has one row for each layer: the OLED label and the layer indicator color. `oled.c` and `rgb.c` read it.
 - Test: `tests/crkbd_keys/test_layers.cpp`.
 - Hardware steps only: the firmware under test is on the keyboard (refer to [hardware-flash.md](./hardware-flash.md)).
 - Hardware steps only: the underglow layer indicator is on (`RGB_UND` toggles it).
@@ -52,5 +52,5 @@ Preconditions:
 ## Gotchas
 
 - The host test does not cover `rgb-indicator` or the OLED. The host build has no RGB matrix and no OLED. `BootSelectsColemakBase` calls `keyboard_post_init_user` directly. It does not do a power cycle.
-- During RGB idle, the underglow shows the animation, not the layer colour. Press a key first.
+- During RGB idle, the underglow shows the animation, not the layer indicator. Press a key first.
 - The OLED that shows layers is the master half (the half with the USB cable).

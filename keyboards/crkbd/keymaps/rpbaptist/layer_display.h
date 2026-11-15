@@ -1,11 +1,11 @@
-// Copyright 2023 Your Name (@rpbaptist)
+// Copyright 2026 Richard Baptist (@rpbaptist)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
 #include "quantum.h"
 
-// One row for each layer. The OLED shows the label and the underglow shows the colour.
+// One row for each layer: the OLED label and the layer indicator color.
 typedef struct {
 #ifdef OLED_ENABLE
     char label[6];
