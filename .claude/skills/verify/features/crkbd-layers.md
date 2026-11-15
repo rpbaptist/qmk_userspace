@@ -8,7 +8,7 @@ The crkbd has three base layers: TYPING (Colemak-DH), GAMING (Colemak-DH with pl
 - `tri-typing`: SYM + NAV gives UTIL on TYPING.
 - `tri-gaming`: GAMING_EXT + NAV gives UTIL on GAMING and WASD.
 - `numpad-lock`: `LCK_NMP` locks NUMPAD on. A second tap unlocks it.
-- `rgb-indicator`: the layer indicator color follows the layer (yellow SYM, spring green NAV, pink UTIL, coral NUMPAD, purple GAMING_EXT, red GAMING and WASD).
+- `rgb-indicator`: the layer indicator follows the layer (yellow SYM, spring green NAV, pink UTIL, coral NUMPAD, purple GAMING_EXT, red GAMING and WASD).
 - `boot-default`: after a power cycle, the base layer is TYPING, with RGB on and with RGB off.
 
 ## How to get to it (user POV)
