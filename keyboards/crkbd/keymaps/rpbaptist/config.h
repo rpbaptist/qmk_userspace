@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define LAYER_STATE_8BIT // 8 layer limit
 
-#define SPLIT_ACTIVITY_ENABLE
 #define SPLIT_LAYER_STATE_ENABLE
 
 #define DEBOUNCE 20
@@ -36,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_ENABLE
 #    define SPLIT_TRANSACTION_IDS_USER USER_CONFIG_SYNC
 
-#    define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 #    define IDLE_TIMEOUT 60000 * 4
 #    define GAMING_IDLE_TIMEOUT 10000
 #    define RGB_MATRIX_TYPING_ACTIVE RGB_MATRIX_SOLID_REACTIVE_SIMPLE
