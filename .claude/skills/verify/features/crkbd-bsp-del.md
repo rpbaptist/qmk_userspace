@@ -12,13 +12,16 @@
 
 - On the TYPING layer, press the top right key. Hold a SHIFT thumb key (`SFT_SPC` or `SFT_ENT`) for DEL.
 
-## Driving it with the user and the keyboard
+## Driving it with run-test.sh and the keyboard
 
 Preconditions:
 
-- The firmware under test is on the keyboard (refer to [hardware-flash.md](./hardware-flash.md)).
-- The base layer is TYPING. The OLED on the master half shows `TYPE`.
+- `qmk_firmware/tests` has no `rpbaptist_crkbd_keys` directory.
+- Source: `BSP_DEL` in `process_record_user` in `keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`. Test: `tests/crkbd_keys/test_bsp_del.cpp`.
+- Hardware steps only: the firmware under test is on the keyboard (refer to [hardware-flash.md](./hardware-flash.md)), and the OLED on the master half shows `TYPE`.
 
+- **Host test.** Run `.claude/skills/verify/scripts/run-test.sh crkbd_keys 'BspDel.*'`. Output ends with `[  PASSED  ] 3 tests.` and `status=0`. `TapSendsBackspace` covers `bsp`, `OneShiftSendsDeleteWithoutShift` covers `del-one-shift`, and `TwoShiftsSendShiftDelete` covers `del-two-shift`.
+- **Test catches defects.** Comment out `del_mods(saved_mods);` in `key_behaviour.c`. Run the host test. `OneShiftSendsDeleteWithoutShift` fails. Restore with `git checkout -- keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`.
 - **Build.** Run `.claude/skills/verify/scripts/build-all.sh crkbd`. Shows `OK`.
 - **Backspace.** Ask the user to type `abc` in a text field and tap the key. The field shows `ab`.
 - **Delete.** Ask the user to put the cursor before `b`, hold one SHIFT thumb, and tap the key. The field shows `a` and no text is selected.
@@ -27,5 +30,5 @@ Preconditions:
 
 ## Gotchas
 
-- There is no host test. The logic is in `process_record_user` in `keymap.c`, which the harness cannot link. To host-test it, move it to its own file first, as `sft_ext.c` does.
-- The SHIFT thumbs are mod-tap keys. The user must hold them longer than the tapping term (`SFT_SPC`: `TAPPING_TERM`; `SFT_ENT`: `TAPPING_TERM - 20`, from `get_tapping_term` in `keymap.c`), or press the key during the hold (`PERMISSIVE_HOLD`).
+- The host test uses plain `KC_LSFT` and `KC_RSFT`, not the mod-tap SHIFT thumbs. The mod-tap timing needs the hardware.
+- The SHIFT thumbs are mod-tap keys. The user must hold them longer than the tapping term (`SFT_SPC`: `TAPPING_TERM`; `SFT_ENT`: `TAPPING_TERM - 20`, from `get_tapping_term` in `key_behaviour.c`), or press the key during the hold (`PERMISSIVE_HOLD`).
