@@ -179,6 +179,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 default_layer_set(1U << _WASD);
             }
             return true;
+        case LCK_NMP:
+            if (record->event.pressed) {
+                layer_lock_invert(_NUMPAD);
+            }
+            return false;
     }
     return true;
 }

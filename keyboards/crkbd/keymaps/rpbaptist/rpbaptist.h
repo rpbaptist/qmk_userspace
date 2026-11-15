@@ -39,7 +39,8 @@ enum custom_keycodes {
     TYPING, // Switch to Colemak layer
     GAMING, // Switch to gaming Colemak layer
     WASD,   // Switch to gaming with WASD positions
-    SFT_EXT // Hold for SHIFT, double tap for one-shot GAMING_EXT
+    SFT_EXT, // Hold for SHIFT, double tap for one-shot GAMING_EXT
+    LCK_NMP  // Toggle layer lock on NUMPAD (QK_LLCK on NUMPAD releases it)
 };
 
 // Layer toggle and switch
@@ -52,7 +53,6 @@ enum custom_keycodes {
 // Layer keys with functionality on tap
 #define NAV_0 LT(_NAV, KC_0)
 #define TAB_NUM LT(_NUMPAD, KC_TAB)
-#define LCK_NMP TG(_NUMPAD)
 #define S_NUM MO(_NUMPAD)
 
 
