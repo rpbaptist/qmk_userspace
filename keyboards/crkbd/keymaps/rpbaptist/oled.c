@@ -11,18 +11,17 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     }
 }
 
-static const char PROGMEM base_labels[][6]  = {[_COLEMAKDH] = "TYPE ", [_GAMING] = "GAME ", [_WASD] = "WASD "};
-static const char PROGMEM layer_labels[][6] = {[_COLEMAKDH] = "     ", [_GAMING] = "Unkn ", [_WASD] = "Unkn ", [_GAMING_EXT] = "Ext  ", [_NUMPAD] = "Num  ", [_SYM] = "Sym  ", [_NAV] = "Nav  ", [_UTIL] = "Util "};
-static const char PROGMEM newline[]         = "\n";
+static const char PROGMEM newline[] = "\n";
 
 static void write_flag(bool on, const char *label) {
     oled_write_P(on ? label : newline, false);
 }
 
 void render_status(void) {
-    oled_write_P(base_labels[get_highest_layer(default_layer_state)], false);
+    oled_write_P(layer_display[get_highest_layer(default_layer_state)].label, false);
     oled_write_P(newline, false);
-    oled_write_P(layer_labels[get_highest_layer(layer_state)], false);
+    uint8_t layer = get_highest_layer(layer_state);
+    oled_write_P(layer < _GAMING_EXT ? PSTR("     ") : layer_display[layer].label, false);
     oled_write_P(newline, false);
 
     uint8_t modifiers = get_mods();

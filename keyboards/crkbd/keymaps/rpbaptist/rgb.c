@@ -25,22 +25,10 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_
     }
 }
 
-static const hsv_t PROGMEM layer_colors[] = {
-    [_COLEMAKDH]  = {THEME_HSV},
-    [_GAMING]     = {HSV_RED},
-    [_WASD]       = {HSV_RED},
-    [_GAMING_EXT] = {HSV_PURPLE},
-    [_NUMPAD]     = {HSV_CORAL},
-    [_SYM]        = {HSV_YELLOW},
-    [_NAV]        = {HSV_SPRINGGREEN},
-    [_UTIL]       = {HSV_PINK},
-};
-_Static_assert(ARRAY_SIZE(layer_colors) == _UTIL + 1, "layer_colors needs one row for each layer");
-
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (rgb_effect_layer_indicator() && !rgb_effect_is_idle()) {
         hsv_t color;
-        memcpy_P(&color, &layer_colors[get_highest_layer(layer_state | default_layer_state)], sizeof(color));
+        memcpy_P(&color, &layer_display[get_highest_layer(layer_state | default_layer_state)].color, sizeof(color));
         rgb_matrix_layer_helper(color.h, color.s, color.v, led_min, led_max);
     }
     return false;

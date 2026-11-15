@@ -6,6 +6,10 @@
 
 #include "quantum.h"
 
+#if defined(RGB_MATRIX_ENABLE) || defined(OLED_ENABLE)
+#    include "layer_display.h"
+#endif
+
 #if defined(RGB_MATRIX_ENABLE)
 #    include "rgb.h"
 #endif
