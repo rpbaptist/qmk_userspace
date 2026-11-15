@@ -58,8 +58,8 @@ static bool process_sft_ext(uint16_t keycode, keyrecord_t *record) {
 
 // One row for each base layer. The first row is the boot default. Each row is
 // at the index of its layer, so the tri-layer rule reads its row with no
-// search. Because of this, the base layers must be the first entries of
-// layer_names (BASE_LAYER_COUNT).
+// search. Because of this, the base layers must be the first
+// BASE_LAYER_COUNT entries of layer_names.
 typedef struct {
     uint8_t  layer;
     uint16_t keycode;   // Selects the layer
