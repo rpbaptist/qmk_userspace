@@ -69,7 +69,7 @@ The script prints only the last 3 lines of `test.log`. To see each failed test, 
 
 To add a host test for crkbd key logic:
 
-- Put the logic in `keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`. It holds the QMK hooks of the crkbd keymap (`process_record_user`, `layer_state_set_user`, `get_tapping_term`, `keyboard_post_init_user`). The firmware and `tests/crkbd_keys` link it. The harness cannot link `keymap.c`, `rgb.c` or `oled.c`.
+- Put the logic in `keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`. It holds the QMK hooks of the crkbd keymap (`process_record_user`, `layer_state_set_user`, `get_tapping_term`, `keyboard_post_init_user`). The firmware and `tests/crkbd_keys` link it. The harness cannot link `keymap.c`, `rgb.c`, `oled.c` or `layer_display.c`.
 - Add a `test_*.cpp` file to `tests/crkbd_keys/`. QMK compiles each `.cpp` file in the test directory.
 - Test through the real hooks. Do not define `process_record_user` or another QMK hook in a test.
 - Each fixture sets its own keymap with `set_keymap({...})`, or `set_keymap({})` and then `add_key` in a loop.

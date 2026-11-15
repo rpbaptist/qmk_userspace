@@ -21,7 +21,7 @@ The crkbd has three base layers: TYPING (Colemak-DH), GAMING (Colemak-DH with pl
 Preconditions:
 
 - `qmk_firmware/tests` has no `rpbaptist_crkbd_keys` directory.
-- Source: `keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`. The `base_layers` table has one row for each base layer: select key, tri-layer lower layer and RGB profile. The hooks `process_record_user`, `layer_state_set_user` and `keyboard_post_init_user` read it.
+- Source: `keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`. The `base_layers` table has one row for each base layer: select key, tri-layer lower layer and RGB profile. The hooks `process_record_user`, `layer_state_set_user` and `keyboard_post_init_user` read it. `layer_display.c` has one row for each layer: the OLED label and the underglow colour. `oled.c` and `rgb.c` read it.
 - Test: `tests/crkbd_keys/test_layers.cpp`.
 - Hardware steps only: the firmware under test is on the keyboard (refer to [hardware-flash.md](./hardware-flash.md)).
 - Hardware steps only: the underglow layer indicator is on (`RGB_UND` toggles it).
