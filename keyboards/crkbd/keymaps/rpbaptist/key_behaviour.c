@@ -96,12 +96,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 saved_mods = get_mods() & MOD_MASK_SHIFT;
 
-                if (saved_mods == MOD_MASK_SHIFT) { // Both shifts pressed
+                if (saved_mods == MOD_MASK_SHIFT) { // Two SHIFT keys: send SHIFT + DEL
                     register_code(KC_DEL);
-                } else if (saved_mods) {  // One shift pressed
-                    del_mods(saved_mods); // Remove any Shifts present
+                } else if (saved_mods) { // One SHIFT key: send DEL without SHIFT
+                    del_mods(saved_mods);
                     register_code(KC_DEL);
-                    add_mods(saved_mods); // Add shifts again
+                    add_mods(saved_mods);
                 } else {
                     register_code(KC_BSPC);
                 }
