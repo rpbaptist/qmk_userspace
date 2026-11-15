@@ -87,7 +87,7 @@ Proof standards:
 
 - Quote the `summary.txt` line or the gtest `[  PASSED  ] N tests.` line, with the evidence path.
 - A host test proves behaviour only if it fails when the logic is wrong. When you add or change a test, break the logic one time (for example, change a condition), run the test, see it fail, and restore the file with `git checkout -- <file>`. Record which tests failed.
-- A host test asserts HID reports, layer state, and (`crkbd_rgb_effect`) the effects that `rgb_effect.c` gives to a fake RGB engine. It does not cover the real RGB output, OLED, split transport, or matrix and debounce timing. Do not claim that it does. Those need the hardware.
+- A host test asserts HID reports and layer state. `crkbd_rgb_effect` also asserts the effects that `rgb_effect.c` gives to a fake RGB engine. Host tests do not cover the real RGB output, OLED, split transport, or matrix and debounce timing. Do not claim that they do. Those need the hardware.
 - If the working tree is dirty, `dirty` in the build evidence shows it. State it when you report.
 - For size changes, compare the free bytes with a build of the base commit.
 

@@ -58,10 +58,10 @@ I took a big inspiration from Drashna's RGB configuration and tweaked it.
 
 These keys work only with `RGB_MATRIX_ENABLE = yes`. If you build with RGB matrix off, the keys stay on the `UTIL` layer but do nothing.
 
-- `RGB_UND`: Toggles underglow indicators on and off. Each layer has its own color.
-- `RGB_IDL`: Turns idle animation on and off. With idle animation on, the active effect shows while you type. After the idle timeout, the idle effect shows. The `GAMING` profile uses a shorter timeout and `RGB_MATRIX_RAINBOW_PINWHEELS` as the idle effect.
-   When you turn idle animation off, the idle effect stays on.
-   On idling, on idling, the underglow layer indication will be deactivated and the animation RGB will be set instead.
+- `RGB_UND`: Turns the layer indicator on and off. Each layer has its own color.
+- `RGB_IDL`: Turns idle animation on and off. With idle animation on, the active effect shows while you type. After the idle timeout, the idle effect shows. The gaming profile (`GAMING`, `WASD`) uses a shorter timeout and `RGB_MATRIX_RAINBOW_PINWHEELS` as the idle effect.
+   When you turn idle animation off, the idle effect shows.
+   While the idle effect shows, the layer indicator is hidden.
 - `RGB_ATG`: Cycles through three active effects: `RGB_MATRIX_SOLID_REACTIVE_SIMPLE` -> `RGB_MATRIX_TYPING_HEATMAP` -> `RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS`
 - `RGB_PST`: Cycles through three idle effects: `RGB_MATRIX_SOLID_COLOR` -> `RGB_MATRIX_BREATHING` -> `RGB_MATRIX_CYCLE_ALL`
 - `RGB_PCT`: Cycles through two, more colorful, idle effects: `RGB_MATRIX_RAINBOW_PINWHEELS` -> `RGB_MATRIX_CYCLE_LEFT_RIGHT`
