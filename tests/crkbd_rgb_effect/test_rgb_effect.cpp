@@ -59,15 +59,14 @@ class RgbEffect : public testing::Test {
 
     static void expect_invariant() {
         if (rgb_effect_idle_animation()) {
-            EXPECT_TRUE(fake_effect == rgb_effect_active_effect() || fake_effect == rgb_effect_idle_effect())
-                << "current " << +fake_effect << " active " << +rgb_effect_active_effect() << " idle " << +rgb_effect_idle_effect();
+            EXPECT_TRUE(fake_effect == rgb_effect_active_effect() || fake_effect == rgb_effect_idle_effect()) << "current " << +fake_effect << " active " << +rgb_effect_active_effect() << " idle " << +rgb_effect_idle_effect();
         }
     }
 };
 
 TEST_F(RgbEffect, TypingProfileUsesConfig) {
     EXPECT_EQ(rgb_effect_typing_profile.active_effect, RGB_MATRIX_TYPING_ACTIVE);
-    EXPECT_EQ(rgb_effect_typing_profile.idle_effect, RGB_MATRIX_TYPING_PASSIVE);
+    EXPECT_EQ(rgb_effect_typing_profile.idle_effect, RGB_MATRIX_TYPING_IDLE);
     EXPECT_EQ(rgb_effect_typing_profile.idle_timeout_s * 1000UL, (uint32_t)IDLE_TIMEOUT);
 }
 
@@ -77,7 +76,7 @@ TEST_F(RgbEffect, IdleTimeoutShowsIdleEffect) {
     EXPECT_FALSE(rgb_effect_is_idle());
 
     wait_and_tick(1);
-    EXPECT_EQ(fake_effect, RGB_MATRIX_TYPING_PASSIVE);
+    EXPECT_EQ(fake_effect, RGB_MATRIX_TYPING_IDLE);
     EXPECT_EQ(fake_speed, RGB_MATRIX_ANIMATION_SPEED_SLOWER);
     EXPECT_TRUE(rgb_effect_is_idle());
 }
@@ -111,7 +110,7 @@ TEST_F(RgbEffect, CycleActiveWithIdleAnimationOn) {
         rgb_effect_cycle_active();
         EXPECT_EQ(rgb_effect_active_effect(), effect);
         EXPECT_EQ(fake_effect, effect);
-        EXPECT_EQ(rgb_effect_idle_effect(), RGB_MATRIX_TYPING_PASSIVE);
+        EXPECT_EQ(rgb_effect_idle_effect(), RGB_MATRIX_TYPING_IDLE);
     }
 }
 
@@ -144,9 +143,8 @@ TEST_F(RgbEffect, CycleIdleWhileIdleShowsNewIdleEffect) {
 
 TEST_F(RgbEffect, CyclesWithIdleAnimationOffShowAndStoreTheEffect) {
     rgb_effect_toggle_idle_animation();
-    ASSERT_EQ(fake_effect, RGB_MATRIX_TYPING_PASSIVE);
+    ASSERT_EQ(fake_effect, RGB_MATRIX_TYPING_IDLE);
 
-    // The cycle starts from the current effect.
     // Each cycle starts from the current effect. The current effect is the
     // idle effect (CYCLE_ALL), which is not in the active cycle, so RGB_ATG
     // starts at SIMPLE.
@@ -182,7 +180,7 @@ TEST_F(RgbEffect, CyclesWithIdleAnimationOffShowAndStoreTheEffect) {
 TEST_F(RgbEffect, IdleAnimationOffShowsIdleEffect) {
     rgb_effect_toggle_idle_animation();
     EXPECT_FALSE(rgb_effect_idle_animation());
-    EXPECT_EQ(fake_effect, RGB_MATRIX_TYPING_PASSIVE);
+    EXPECT_EQ(fake_effect, RGB_MATRIX_TYPING_IDLE);
     EXPECT_FALSE(rgb_effect_is_idle());
 }
 
@@ -208,8 +206,12 @@ TEST_F(RgbEffect, TypingProfileKeepsLayerIndicator) {
     rgb_effect_set_profile(&rgb_effect_typing_profile);
     EXPECT_FALSE(rgb_effect_layer_indicator());
     EXPECT_EQ(fake_effect, RGB_MATRIX_TYPING_ACTIVE);
+    EXPECT_EQ(rgb_effect_active_effect(), RGB_MATRIX_TYPING_ACTIVE);
+    EXPECT_EQ(rgb_effect_idle_effect(), RGB_MATRIX_TYPING_IDLE);
     wait_and_tick(GAMING_IDLE_TIMEOUT + 1);
     EXPECT_EQ(fake_effect, RGB_MATRIX_TYPING_ACTIVE) << "typing timeout, not gaming";
+    wait_and_tick(IDLE_TIMEOUT);
+    EXPECT_EQ(fake_effect, RGB_MATRIX_TYPING_IDLE);
 }
 
 // A profile set while idle animation is off stores both effects, so they
@@ -237,18 +239,17 @@ TEST_F(RgbEffect, TypingProfileWithIdleAnimationOff) {
     rgb_effect_set_profile(&rgb_effect_typing_profile);
     EXPECT_EQ(fake_effect, RGB_MATRIX_TYPING_ACTIVE);
     EXPECT_EQ(rgb_effect_active_effect(), RGB_MATRIX_TYPING_ACTIVE);
-    EXPECT_EQ(rgb_effect_idle_effect(), RGB_MATRIX_TYPING_PASSIVE);
+    EXPECT_EQ(rgb_effect_idle_effect(), RGB_MATRIX_TYPING_IDLE);
 
     rgb_effect_toggle_idle_animation();
     key_press();
     wait_and_tick(IDLE_TIMEOUT + 1);
-    EXPECT_EQ(fake_effect, RGB_MATRIX_TYPING_PASSIVE);
+    EXPECT_EQ(fake_effect, RGB_MATRIX_TYPING_IDLE);
 }
 
 // Reset starts on the active effect of the typing profile, so the idle timeout
-// works after reset. Before, reset always showed SOLID_REACTIVE_SIMPLE, which
-// is not the active effect of the milkshake theme. The build has one theme, so
-// the profiles of the other themes are copied from config.h.
+// works after reset. The build has one theme, so the test copies the typing
+// profiles of the other themes from config.h.
 TEST_F(RgbEffect, ResetStartsOnActiveEffectForEachTheme) {
     for (const rgb_effect_profile_t *typing : {&default_typing, &laser_typing, &milkshake_typing}) {
         SCOPED_TRACE(+typing->active_effect);

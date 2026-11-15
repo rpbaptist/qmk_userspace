@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define IDLE_TIMEOUT 60000 * 4
 #    define GAMING_IDLE_TIMEOUT 10000
 #    define RGB_MATRIX_TYPING_ACTIVE RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#    define RGB_MATRIX_TYPING_PASSIVE RGB_MATRIX_CYCLE_ALL
+#    define RGB_MATRIX_TYPING_IDLE RGB_MATRIX_CYCLE_ALL
 
 #    define RGB_MATRIX_HUE_STEP 6
 #    define RGB_MATRIX_SAT_STEP 8
@@ -71,16 +71,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define THEME_HSV HSV_ORANGE
 #    elif defined(THEME_LASER)
 #        undef RGB_MATRIX_TYPING_ACTIVE
-#        undef RGB_MATRIX_TYPING_PASSIVE
+#        undef RGB_MATRIX_TYPING_IDLE
 #        define THEME_HSV HSV_PURPLE
 #        define RGB_MATRIX_TYPING_ACTIVE RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#        define RGB_MATRIX_TYPING_PASSIVE RGB_MATRIX_CYCLE_LEFT_RIGHT
+#        define RGB_MATRIX_TYPING_IDLE RGB_MATRIX_CYCLE_LEFT_RIGHT
 #    elif defined(THEME_MILKSHAKE)
 #        undef RGB_MATRIX_TYPING_ACTIVE
-#        undef RGB_MATRIX_TYPING_PASSIVE
+#        undef RGB_MATRIX_TYPING_IDLE
 #        define THEME_HSV 30, 255, 218
 #        define RGB_MATRIX_TYPING_ACTIVE RGB_MATRIX_TYPING_HEATMAP
-#        define RGB_MATRIX_TYPING_PASSIVE RGB_MATRIX_CYCLE_LEFT_RIGHT
+#        define RGB_MATRIX_TYPING_IDLE RGB_MATRIX_CYCLE_LEFT_RIGHT
 #    elif defined(THEME_AWAKEN)
 #        define THEME_HSV 170, 255, 180
 #    else

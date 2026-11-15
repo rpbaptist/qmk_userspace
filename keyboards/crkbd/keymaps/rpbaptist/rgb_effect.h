@@ -32,8 +32,9 @@ void rgb_effect_cycle_idle_color(void);
 void rgb_effect_toggle_idle_animation(void);
 void rgb_effect_toggle_layer_indicator(void);
 
-// Call on each key event and from the housekeeping task of the master half.
+// Call on each key event.
 void rgb_effect_wake(void);
+// Call from the housekeeping task of the master half.
 void rgb_effect_tick(void);
 
 bool    rgb_effect_is_idle(void);
