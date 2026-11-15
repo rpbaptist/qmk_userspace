@@ -7,10 +7,10 @@ With idle animation on, the crkbd shows the active effect while the user types. 
 - `idle-timeout`: the idle effect shows after the idle timeout, not before.
 - `wake`: a key press shows the active effect, and the timeout starts again.
 - `cycle`: the cycle order of `RGB_ATG`, `RGB_PST` and `RGB_PCT`, with idle animation on and off.
-- `profile`: typing and gaming profiles store both effects and the timeout, with idle animation on and off.
-- `reset`: after reset, the current effect is the active effect of the typing profile, for each theme.
+- `profile`: typing and gaming profiles store both effects and the timeout, with idle animation on and off. The gaming profile turns the layer indicator on.
+- `reset`: after reset, the current effect is the active effect of the typing profile, for each theme, and the layer indicator and idle animation are on.
 - `invariant`: with idle animation on, the current effect is the active effect or the idle effect.
-- `oled`, `layer-indicator`, `split-sync`: not host-tested. They need the keyboard.
+- `oled`, the LED output of the layer indicator, `split-sync`: not host-tested. They need the keyboard. The tests assert only the layer indicator flag.
 
 ## How to get to it (user POV)
 
@@ -23,9 +23,9 @@ Preconditions:
 - `qmk_firmware/tests` has no `rpbaptist_crkbd_rgb_effect` directory.
 - Source: `keyboards/crkbd/keymaps/rpbaptist/rgb_effect.c`. It talks to the RGB engine through `rgb_effect_engine.h`. The firmware links `rgb_effect_engine_qmk.c`. The test links a fake engine in `tests/crkbd_rgb_effect/test_rgb_effect.cpp` and moves the harness timer with `advance_time`.
 
-- **All behaviours.** Run `.claude/skills/verify/scripts/run-test.sh crkbd_rgb_effect`. Output ends with `[  PASSED  ] 18 tests.` and `status=0`.
+- **All behaviours.** Run `.claude/skills/verify/scripts/run-test.sh crkbd_rgb_effect`. Output shows `status=0` and ends with `[  PASSED  ] 18 tests.`
 - **Test catches defects.** In `rgb_effect.c`, add `show(RGB_MATRIX_SOLID_REACTIVE_SIMPLE);` at the end of `rgb_effect_reset`. Run the test. `ResetStartsOnActiveEffectForEachTheme`, `ResetSetsSpeedOfActiveEffect` and `InvariantHoldsAfterEachOperation` fail. Restore the file.
-- **Firmware also builds.** Run `.claude/skills/verify/scripts/build-all.sh crkbd`, and `qmk compile -kb crkbd/rev1 -km rpbaptist -e RGB_MATRIX_ENABLE=no`. Both show `OK`.
+- **Firmware also builds.** Run `.claude/skills/verify/scripts/build-all.sh crkbd`, and `.claude/skills/verify/scripts/build-all.sh crkbd -e RGB_MATRIX_ENABLE=no`. Both show `OK`.
 - **Proof.** Quote the gtest result line and give the evidence path.
 
 ## Gotchas

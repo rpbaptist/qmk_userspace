@@ -21,7 +21,7 @@ Preconditions:
 - Hardware steps only: the firmware under test is on the keyboard (refer to [hardware-flash.md](./hardware-flash.md)).
 - Hardware steps only: the OLED on the master half shows `TYPE`.
 
-- **Host test.** Run `.claude/skills/verify/scripts/run-test.sh crkbd_keys 'BspDel.*'`. Output ends with `[  PASSED  ] 3 tests.` and `status=0`.
+- **Host test.** Run `.claude/skills/verify/scripts/run-test.sh crkbd_keys 'BspDel.*'`. Output shows `status=0` and ends with `[  PASSED  ] 3 tests.`
 
   | Sub-feature | Test |
   | --- | --- |

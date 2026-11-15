@@ -28,7 +28,7 @@ Preconditions:
 
 ## Gotchas
 
-- `EE_HANDS`: each half has its handedness in EEPROM. A flash does not change it, but `EE_CLR` does. After `EE_CLR`, flash with `:dfu-split-left` or `:dfu-split-right` on the correct half.
+- `EE_HANDS`: each half has its handedness in EEPROM. A flash does not change it, but `EE_CLR` does. After `EE_CLR`, flash the correct half with `qmk flash -bl dfu-split-left` or `-bl dfu-split-right` (plus `-kb crkbd/rev1 -km rpbaptist`).
 - The Iris rev2 target expects Caterina and 12 LEDs, but this board has QMK DFU and 18 LEDs. Refer to the Iris README before you flash.
 - `4653:0001` is the Corne in normal firmware. While `qmk flash` waits, the half is in the DFU bootloader, which has a different USB ID, so `lsusb | grep 4653:0001` shows nothing then.
 - You cannot press reset. If the user is not there, stop and report "built, not flashed".
