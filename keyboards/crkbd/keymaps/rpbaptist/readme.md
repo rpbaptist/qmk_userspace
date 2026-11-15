@@ -2,8 +2,6 @@
 
 This is my highly personalized CRKBD layout. I use Colemak DH as main typing layer. I use this keyboard and layout in my daily programming job and for everything at home, including gaming.
 
-This keymap is the result of an evolution from Ultimate Hacking Keyboard to Iris, to Corne. It took many iterations and changes and only now I feel this is ready to be merged into the main QMK repository, because I think further changes will be minor. This is my 1.0 release so to speak.
-
 Many thanks to foostan for the keyboard, all QMK contributors and drashna specifically for his work on this keyboard.
 
 ## Layers
@@ -16,7 +14,7 @@ Holding SHIFT while tapping BACKSPACE will output DEL. Holding both SHIFT keys w
 
 I don't know about you but "lower" and "raise" don't mean that much to me. I named my layers `SYM`, short for symbols and `NAV`, short for navigation. Holding the key will activate the layer for as long as it is held, double tapping it will switch to it. Single tapping it once will switch to main layer again.
 
-Holding TAB will access `NUMPAD` layer which features a numpad. This is lockable by going to `ADJUST` layer and pressing the same key.
+Holding TAB will access `NUMPAD` layer which features a numpad. This is lockable by going to `UTIL` layer and pressing the same key.
 
 ### SYM
 
@@ -72,10 +70,8 @@ These keys work only with `RGB_MATRIX_ENABLE = yes`. If you build with RGB matri
 sends only after the switch stays open for 20 ms, so a bounce cannot send a
 false release and press.
 
-Before this, the keymap used `sym_eager_pk`. With 15 ms, switch bounce on
-this hot-swap board toggled QWERTY on and off again. Values up to 35 ms
-stopped the chatter, but made each tap at least 35 ms long and the shortest
-`SFT_EXT` double tap about 70 ms.
+We do not use `sym_eager_pk`: on this hot-swap board it needs 35 ms to stop
+chatter, which makes each tap at least 35 ms long.
 
 If chatter comes back, check the hot-swap sockets of the keys that chatter
 before you raise `DEBOUNCE`.
@@ -92,9 +88,4 @@ Provide the theme like this:
 
 `THEME=laser qmk flash -bl dfu -kb crkbd -km rpbaptist`
 
-Current supported themes are:
-
-- pulse (default)
-- godspeed
-- laser
-- milkshake
+The themes are the `THEME` values in `rules.mk`. The default is pulse.

@@ -13,7 +13,6 @@ This directory is the maintained source to verify the user-facing behaviour of t
 
 - Use the helpers in `.claude/skills/verify/scripts/`. Do not run `make test:` by hand, because the helper stages and removes the scaffolding.
 - Use the real board revision: `crkbd/rev1`, `keebio/iris/rev2`.
-- Do not flash without the user's approval. A flash replaces the firmware on the user's keyboard.
 - Use the real keymap timings. Host tests include the keymap `config.h`, so `TAPPING_TERM` and `ONESHOT_TIMEOUT` are the same as on the keyboard.
 
 ## Proof and skip reporting

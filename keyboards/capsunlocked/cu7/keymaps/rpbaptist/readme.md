@@ -1,1 +1,1 @@
-# The default keymap for CU7
+# rpbaptist keymap for CU7

@@ -12,7 +12,6 @@ Each maintained keymap compiles against the local `qmk_firmware` with no warning
 ## How to get to it (user POV)
 
 - The user runs `qmk compile` or `qmk flash` for a keymap.
-- GitHub CI runs on push, but `qmk.json` has no `build_targets`, so CI builds nothing now.
 
 ## Driving it with build-all.sh
 
@@ -23,12 +22,12 @@ Preconditions:
 - **All maintained keymaps.** Run `.claude/skills/verify/scripts/build-all.sh`. It builds crkbd, Iris and CU7 (`rpbaptist`). Each line shows `OK`, `warnings=0` and the size. The exit code is 0.
 - **One keyboard.** Run `.claude/skills/verify/scripts/build-all.sh crkbd`. Only the crkbd line shows.
 - **Size change.** Run `build-all.sh crkbd` on the change, then on the base commit in a worktree. Compare the free bytes. Do not use an old number as the baseline; build the base commit.
-- **Themes.** For each theme, run `THEME=<theme> qmk --no-color compile -kb crkbd/rev1 -km rpbaptist`. Each shows `firmware size is fine`. Each theme has the same size, because each font array has the same length. An unknown name gives the same size as the default theme.
+- **Themes.** For each theme, run `THEME=<theme> qmk --no-color compile -kb crkbd/rev1 -km rpbaptist`. Each shows `firmware size is fine`. Each theme has the same size, because each font array has the same length.
 - **Proof.** Quote the `summary.txt` lines and give the evidence path.
 
 ## Gotchas
 
-- `planck/rev6:rpbaptist` and `dz60:marina` fail on current QMK. `build-all.sh` skips them unless `STALE=1`. Do not count those failures against a change in other keymaps.
+- The stale keymaps fail (see **Known state** in `SKILL.md`). Do not count those failures against a change in other keymaps.
 - Each compile writes a `.hex` to the repo root. `.gitignore` ignores it. Do not commit it.
 - `qmk compile` without `--no-color` puts ANSI codes in the log, which stops the warning count.
 - `THEME` changes only the crkbd. Other keymaps ignore it. An unknown `THEME` name gives no error; the build uses the default theme.

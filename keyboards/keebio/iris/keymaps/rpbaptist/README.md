@@ -2,7 +2,7 @@
 
 I use the left half of an Iris rev2 alone as a gaming pad. The right half is
 not connected. My daily driver is a crkbd, so this keymap uses the letter
-positions and the debounce of my crkbd gaming layers. I can play on either
+positions of my crkbd gaming layers. I can play on either
 keyboard without remapping keys in games.
 
 ## Hardware
@@ -93,7 +93,7 @@ The underglow shows the active layer:
 
 ## Timings
 
-Same as the crkbd: `DEBOUNCE 35` with `sym_eager_pk`. A low debounce value
+`DEBOUNCE 35` with `sym_eager_pk`. A low debounce value
 let switch bounce toggle QWERTY on and off again. The keymap also sets
 `TAPPING_TERM 140` with `PERMISSIVE_HOLD`, but no key uses tap-hold now.
 
