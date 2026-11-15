@@ -56,6 +56,8 @@ To reach `UTIL` from a gaming layer, first hold `NAV`, then double tap `SFT_EXT`
 
 I took a big inspiration from Drashna's RGB configuration and tweaked it.
 
+These keys work only with `RGB_MATRIX_ENABLE = yes`. If you build with RGB matrix off, the keys stay on the `UTIL` layer but do nothing.
+
 - `RGB_UND`: Toggles underglow indicators on and off. Each layer has its own color.
 - `RGB_IDL`: This will enable/disable idle mode. By default an "active" RGB mode will be used. When the idle timeout has exceeded the secondary animation will be activated, which is a passive animation. When switching to `GAMING` layer the timeout will be reduced and the idle animation changed to `RGB_MATRIX_RAINBOW_PINWHEELS`.
    When disabling idle mode, the current idle animation will be activated.
