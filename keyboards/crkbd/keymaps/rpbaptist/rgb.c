@@ -11,15 +11,13 @@ void user_config_sync(uint8_t initiator2target_buffer_size, const void* initiato
     }
 }
 
-extern led_config_t g_led_config;
-
 void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_min, uint8_t led_max) {
-    HSV hsv = {hue, sat, val};
+    hsv_t hsv = {hue, sat, val};
     if (hsv.v > rgb_matrix_get_val()) {
         hsv.v = rgb_matrix_get_val();
     }
 
-    RGB rgb = hsv_to_rgb(hsv);
+    rgb_t rgb = hsv_to_rgb(hsv);
     for (uint8_t i = led_min; i < led_max; i++) {
         if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
             rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
@@ -27,32 +25,23 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_
     }
 }
 
+static const hsv_t PROGMEM layer_colors[] = {
+    [_COLEMAKDH]  = {THEME_HSV},
+    [_GAMING]     = {HSV_RED},
+    [_WASD]       = {HSV_RED},
+    [_GAMING_EXT] = {HSV_PURPLE},
+    [_NUMPAD]     = {HSV_CORAL},
+    [_SYM]        = {HSV_YELLOW},
+    [_NAV]        = {HSV_SPRINGGREEN},
+    [_UTIL]       = {HSV_PINK},
+};
+_Static_assert(ARRAY_SIZE(layer_colors) == _UTIL + 1, "layer_colors needs one row for each layer");
+
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (rgb_effect_layer_indicator() && !rgb_effect_is_idle()) {
-        switch (get_highest_layer(layer_state | default_layer_state)) {
-            case _GAMING_EXT:
-                rgb_matrix_layer_helper(HSV_PURPLE, led_min, led_max);
-                break;
-            case _SYM:
-                rgb_matrix_layer_helper(HSV_YELLOW, led_min, led_max);
-                break;
-            case _NAV:
-                rgb_matrix_layer_helper(HSV_SPRINGGREEN, led_min, led_max);
-                break;
-            case _UTIL:
-                rgb_matrix_layer_helper(HSV_PINK, led_min, led_max);
-                break;
-            case _NUMPAD:
-                rgb_matrix_layer_helper(HSV_CORAL, led_min, led_max);
-                break;
-            case _GAMING:
-            case _WASD:
-                rgb_matrix_layer_helper(HSV_RED, led_min, led_max);
-                break;
-            default:
-                rgb_matrix_layer_helper(THEME_HSV, led_min, led_max);
-                break;
-        }
+        hsv_t color;
+        memcpy_P(&color, &layer_colors[get_highest_layer(layer_state | default_layer_state)], sizeof(color));
+        rgb_matrix_layer_helper(color.h, color.s, color.v, led_min, led_max);
     }
     return false;
 }
