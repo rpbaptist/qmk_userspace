@@ -1,6 +1,6 @@
 # Shared paths for the verify helpers. Source it; do not run it.
-# The checkout or worktree of the current directory. The skill is not tracked,
-# so a worktree runs these scripts from the main checkout.
+# The checkout or worktree of the current directory. If the current directory
+# is not in a userspace checkout, use the checkout that holds this script.
 USERSPACE=$(git rev-parse --show-toplevel 2>/dev/null) && [[ -f $USERSPACE/qmk.json ]] \
     || USERSPACE=$(git -C "$(dirname "${BASH_SOURCE[0]}")" rev-parse --show-toplevel)
 QMK_HOME=$(qmk config -ro user.qmk_home | cut -d= -f2 | sed "s/ (.*)$//")
