@@ -11,8 +11,8 @@ BUILD_DIR="$USERSPACE/.build"
 export MAKEFLAGS="${MAKEFLAGS:+$MAKEFLAGS }BUILD_DIR=$BUILD_DIR"
 EVIDENCE_ROOT="${VERIFY_EVIDENCE_ROOT:-$HOME/.local/share/doc/qmk_userspace/verify}"
 
+# The random suffix keeps runs that start in the same second apart.
 new_evidence_dir() { # $1 = label
-    local dir="$EVIDENCE_ROOT/$(date -u +%Y%m%dT%H%M%SZ)-$1"
-    mkdir -p "$dir"
-    printf '%s\n' "$dir"
+    mkdir -p "$EVIDENCE_ROOT"
+    mktemp -d "$EVIDENCE_ROOT/$(date -u +%Y%m%dT%H%M%SZ)-$1-XXXX"
 }

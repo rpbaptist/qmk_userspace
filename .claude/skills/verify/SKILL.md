@@ -20,7 +20,7 @@ Read [features/README.md](features/README.md) for the feature map. Each feature 
 - Keymaps: `keyboards/<kb>/keymaps/<km>/`.
 - Host tests: `tests/<name>/` in this repo, with `test.mk`, `config.h` and `test_*.cpp`. The names cannot contain `-`.
 - Helpers: `.claude/skills/verify/scripts/`. All are executable. Run them from any directory in the repo.
-- Evidence: `~/.local/share/doc/qmk_userspace/verify/<UTC time>-<label>/`. Set `VERIFY_EVIDENCE_ROOT` to change it. Cleanup never deletes it.
+- Evidence: `~/.local/share/doc/qmk_userspace/verify/<UTC time>-<label>-<random>/`. Set `VERIFY_EVIDENCE_ROOT` to change it. Cleanup never deletes it.
 
 ## Launch
 
@@ -32,7 +32,7 @@ There is no server. Launch is a compile.
 STALE=1 .claude/skills/verify/scripts/build-all.sh  # also the stale keymaps
 ```
 
-Ready: each line starts with `OK`, shows `warnings=0`, and shows the firmware size. The exit code is 0 only if all selected targets compile. The script also writes the `.hex` to the repo root, which `.gitignore` ignores.
+Ready: each line starts with `OK`, shows `warnings=0`, and shows the firmware size. The exit code is 0 only if all selected targets compile. The script also writes the `.hex` to the repo root, which `.gitignore` ignores. Run one build at a time in a checkout. Builds that run at the same time share `.build` and fail at the link step.
 
 To change the target list, edit `targets` in `build-all.sh`. The board revisions come from the keymap READMEs (`crkbd/rev1`, `keebio/iris/rev2`).
 
