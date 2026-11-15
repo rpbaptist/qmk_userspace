@@ -29,18 +29,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   // Toggled on top of _COLEMAK. Letters shift one column right, so WASD
-  // sits under the same fingers as on the crkbd _WASD layer.
+  // sits under the same fingers as on the crkbd _WASD layer. Keys that
+  // match _COLEMAK are transparent, except letters.
   [_QWERTY] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐
-      KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+     _______, _______, _______, _______, _______, _______,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_GRV,    KC_T,    KC_Q,    KC_W,    KC_E,    KC_R,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+     _______,    KC_T,    KC_Q,    KC_W,    KC_E,    KC_R,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_TAB,    KC_G,    KC_A,    KC_S,    KC_D,    KC_F,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+     _______,    KC_G,    KC_A,    KC_S,    KC_D,    KC_F,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐
-      KC_LCTL,   KC_B,    KC_Z,    KC_X,    KC_C,    KC_V,     EXT,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+     _______,    KC_B,    KC_Z,    KC_X,    KC_C,    KC_V, _______,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘
-                                     KC_LALT, KC_LSFT,  KC_SPC,       XXXXXXX, XXXXXXX, XXXXXXX
+                                     _______, _______, _______,       XXXXXXX, XXXXXXX, XXXXXXX
   //                               └────────┴────────┴────────┘
   ),
 
