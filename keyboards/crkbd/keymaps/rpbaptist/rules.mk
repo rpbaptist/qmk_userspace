@@ -70,6 +70,6 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
 	SRC+= oled.c
 endif
 
-ifneq ($(strip $(RGB_MATRIX_ENABLE))$(strip $(OLED_ENABLE)),nono)
+ifneq ($(filter yes,$(strip $(RGB_MATRIX_ENABLE)) $(strip $(OLED_ENABLE))),)
 	SRC += layer_display.c
 endif
