@@ -22,10 +22,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤
       KC_TAB,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐
-      KC_LCTL,   KC_Z,    KC_X,    KC_C,    KC_D,    KC_V, KC_LSFT,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      KC_LCTL,   KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,     EXT,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘
-                                     KC_LALT,     EXT,  KC_SPC,       XXXXXXX, XXXXXXX, XXXXXXX
-  //                                └────────┴────────┴────────┘
+                                     KC_LALT, KC_LFFT,  KC_SPC,       XXXXXXX, XXXXXXX, XXXXXXX
+  //                               └────────┴────────┴────────┘
   ),
 
   // Toggled on top of _COLEMAK. Letters shift one column right, so WASD
@@ -38,10 +38,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤
       KC_TAB,    KC_G,    KC_A,    KC_S,    KC_D,    KC_F,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐
-      KC_LCTL,   KC_B,    KC_Z,    KC_X,    KC_C,    KC_V, KC_LSFT,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      KC_LCTL,   KC_B,    KC_Z,    KC_X,    KC_C,    KC_V,     EXT,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘
-                                     KC_LALT,     EXT,  KC_SPC,       XXXXXXX, XXXXXXX, XXXXXXX
-  //                                └────────┴────────┴────────┘
+                                     KC_LALT, KC_LSFT,  KC_SPC,       XXXXXXX, XXXXXXX, XXXXXXX
+  //                               └────────┴────────┴────────┘
   ),
 
   [_GAMING_EXT] = LAYOUT(
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_ENT,    KC_H,    KC_I,    KC_J,    KC_K,    KC_L,    KC_M,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘
                                      _______, _______, _______,       XXXXXXX, XXXXXXX, XXXXXXX
-  //                                └────────┴────────┴────────┘
+  //                               └────────┴────────┴────────┘
   ),
 };
 
