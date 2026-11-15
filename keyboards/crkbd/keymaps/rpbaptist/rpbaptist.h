@@ -29,10 +29,10 @@ enum custom_keycodes {
     BSP_DEL = SAFE_RANGE,
     RGB_RST, // Reset RGB
     RGB_UND, // Toggle RGB underglow as layer indicator
-    RGB_ATG, // Toggle active RGB mode
-    RGB_PST, // Toggle simple passive RGB mode
-    RGB_PCT, // Toggle colorful passive RGB mode
-    RGB_IDL, // RGB Idling animations
+    RGB_ATG, // Cycle the active effect
+    RGB_PST, // Cycle the simple idle effects
+    RGB_PCT, // Cycle the colorful idle effects
+    RGB_IDL, // Toggle idle animation
     TYPING, // Switch to Colemak layer
     GAMING, // Switch to gaming Colemak layer
     WASD,   // Switch to gaming with WASD positions

@@ -1,6 +1,6 @@
 ---
 name: verify
-description: Prove changes to this QMK userspace (crkbd, Iris, CU7, Planck, DZ60 keymaps) work. Compiles each keymap and records size and warnings, and runs host-side gtest journeys for keymap logic (crkbd key behaviour) in the QMK test harness. Use after any change under keyboards/ or tests/, before you commit, and when the user asks if a keymap builds or behaves correctly.
+description: Prove changes to this QMK userspace (crkbd, Iris, CU7, Planck, DZ60 keymaps) work. Compiles each keymap and records size and warnings, and runs host-side gtest journeys for keymap logic (crkbd key behaviour, crkbd RGB idle animation) in the QMK test harness. Use after any change under keyboards/ or tests/, before you commit, and when the user asks if a keymap builds or behaves correctly.
 ---
 
 # Verify qmk_userspace
@@ -60,6 +60,7 @@ If `rpbaptist_*` directories exist in `qmk_firmware/tests`, a test run is active
 ```bash
 .claude/skills/verify/scripts/run-test.sh crkbd_keys                 # all tests
 .claude/skills/verify/scripts/run-test.sh crkbd_keys 'SftExt.Hold*'  # gtest filter
+.claude/skills/verify/scripts/run-test.sh crkbd_rgb_effect           # RGB idle animation, fake engine
 ```
 
 The script copies `tests/<name>` to `qmk_firmware/tests/rpbaptist_<name>`, because QMK finds tests only as real files there. It runs `make test:rpbaptist_<name>`, writes evidence, and removes the copy on exit. A failed build gives a non-zero status and runs no test. Only one run of a given test at a time: the script stops if the copy already exists.
@@ -86,7 +87,7 @@ Proof standards:
 
 - Quote the `summary.txt` line or the gtest `[  PASSED  ] N tests.` line, with the evidence path.
 - A host test proves behaviour only if it fails when the logic is wrong. When you add or change a test, break the logic one time (for example, change a condition), run the test, see it fail, and restore the file with `git checkout -- <file>`. Record which tests failed.
-- A host test asserts HID reports and layer state. It does not cover RGB, OLED, split transport, or matrix and debounce timing. Do not claim that it does. Those need the hardware.
+- A host test asserts HID reports, layer state, and (`crkbd_rgb_effect`) the effects that `rgb_effect.c` gives to a fake RGB engine. It does not cover the real RGB output, OLED, split transport, or matrix and debounce timing. Do not claim that it does. Those need the hardware.
 - If the working tree is dirty, `dirty` in the build evidence shows it. State it when you report.
 - For size changes, compare the free bytes with a build of the base commit.
 
