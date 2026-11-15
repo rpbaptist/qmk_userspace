@@ -1,4 +1,4 @@
-// Copyright 2023 Your Name (@rpbaptist)
+// Copyright 2026 Richard Baptist (@rpbaptist)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "rpbaptist.h"
