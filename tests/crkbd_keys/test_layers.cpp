@@ -11,8 +11,9 @@ extern "C" {
 using testing::_;
 
 // Columns of row 0 in the test keymap.
-// COL_OTHER holds the lower layer of the other tri-layer pair.
-enum { COL_LEFT, COL_NAV, COL_TYPING, COL_GAMING, COL_WASD, COL_LCK_NMP, COL_OTHER, COL_COUNT };
+// COL_WRONG_LOWER holds the lower layer of the tri-layer pair of the other base
+// layers.
+enum { COL_LEFT, COL_NAV, COL_TYPING, COL_GAMING, COL_WASD, COL_LCK_NMP, COL_WRONG_LOWER, COL_COUNT };
 
 class Layers : public TestFixture {
    protected:
@@ -61,13 +62,13 @@ class Layers : public TestFixture {
         release(COL_LEFT);
     }
 
-    // Hold the lower layer of the other pair and NAV, check no UTIL, release.
-    void expect_no_util_from_other_and_nav() {
-        press(COL_OTHER);
+    // Hold the wrong lower layer and NAV, check no UTIL, release.
+    void expect_no_util_from_wrong_lower_and_nav() {
+        press(COL_WRONG_LOWER);
         press(COL_NAV);
         EXPECT_FALSE(layer_state_is(_UTIL));
         release(COL_NAV);
-        release(COL_OTHER);
+        release(COL_WRONG_LOWER);
     }
 };
 
@@ -83,7 +84,7 @@ TEST_F(Layers, GamingExtAndNavGiveNoUtilOnTyping) {
     TestDriver driver;
     EXPECT_NO_REPORT(driver);
 
-    expect_no_util_from_other_and_nav();
+    expect_no_util_from_wrong_lower_and_nav();
     VERIFY_AND_CLEAR(driver);
 }
 
@@ -92,7 +93,7 @@ TEST_F(Layers, SymAndNavGiveNoUtilOnGaming) {
     EXPECT_NO_REPORT(driver);
 
     default_layer_set(1UL << _GAMING);
-    expect_no_util_from_other_and_nav();
+    expect_no_util_from_wrong_lower_and_nav();
     VERIFY_AND_CLEAR(driver);
 }
 
@@ -101,7 +102,7 @@ TEST_F(Layers, SymAndNavGiveNoUtilOnWasd) {
     EXPECT_NO_REPORT(driver);
 
     default_layer_set(1UL << _WASD);
-    expect_no_util_from_other_and_nav();
+    expect_no_util_from_wrong_lower_and_nav();
     VERIFY_AND_CLEAR(driver);
 }
 

@@ -58,7 +58,8 @@ static bool process_sft_ext(uint16_t keycode, keyrecord_t *record) {
 
 // One row for each base layer. The first row is the boot default. Each row is
 // at the index of its layer, so the tri-layer rule reads its row with no
-// search. Thus the base layers must be the first entries of layer_names.
+// search. Because of this, the base layers must be the first entries of
+// layer_names, before _GAMING_EXT.
 typedef struct {
     uint8_t  layer;
     uint16_t keycode;   // Selects the layer
@@ -79,6 +80,7 @@ static const base_layer_t base_layers[] = {
     [_GAMING]    = {.layer = _GAMING, .keycode = GAMING, .tri_lower = _GAMING_EXT, BASE_PROFILE(rgb_effect_gaming_profile)},
     [_WASD]      = {.layer = _WASD, .keycode = WASD, .tri_lower = _GAMING_EXT, BASE_PROFILE(rgb_effect_gaming_profile)},
 };
+_Static_assert(ARRAY_SIZE(base_layers) == _GAMING_EXT, "Each layer before _GAMING_EXT needs a base_layers row");
 
 static const base_layer_t *base_layer_by_keycode(uint16_t keycode) {
     for (const base_layer_t *base = base_layers; base < base_layers + ARRAY_SIZE(base_layers); base++) {
@@ -99,13 +101,16 @@ static void select_base_layer(const base_layer_t *base) {
 void keyboard_post_init_user(void) {
     set_single_default_layer(base_layers[0].layer);
 #ifdef RGB_MATRIX_ENABLE
-    keyboard_post_init_rgb();
+    keyboard_post_init_user_rgb_matrix();
 #endif
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     uint8_t layer = get_highest_layer(default_layer_state);
-    return layer < ARRAY_SIZE(base_layers) ? update_tri_layer_state(state, base_layers[layer].tri_lower, _NAV, _UTIL) : state;
+    if (layer >= ARRAY_SIZE(base_layers)) {
+        return state;
+    }
+    return update_tri_layer_state(state, base_layers[layer].tri_lower, _NAV, _UTIL);
 }
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
