@@ -23,7 +23,7 @@ Preconditions:
 - `qmk_firmware/tests` has no `rpbaptist_crkbd_keys` directory.
 - Source: `process_sft_ext` in `keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`. Test: `tests/crkbd_keys/test_sft_ext.cpp`. The tests go through the real `process_record_user`.
 
-- **All behaviours.** Run `.claude/skills/verify/scripts/run-test.sh crkbd_keys 'SftExt.*'`. Output ends with `[  PASSED  ] 7 tests.` and `status=0`.
+- **All behaviours.** Run `.claude/skills/verify/scripts/run-test.sh crkbd_keys 'SftExt.*'`. Output shows `status=0` and ends with `[  PASSED  ] 7 tests.`
 
   | Sub-feature | Test |
   | --- | --- |

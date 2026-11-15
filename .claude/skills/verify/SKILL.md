@@ -53,7 +53,7 @@ If `rpbaptist_*` directories exist in `qmk_firmware/tests`, a test run is active
 
 ### Build
 
-`build-all.sh` (above). For one keymap with a theme or option: `THEME=laser qmk compile -kb crkbd/rev1 -km rpbaptist`.
+`build-all.sh` (above). For a theme or a build option, pass it through the helper: `THEME=laser build-all.sh crkbd`, or `build-all.sh crkbd -e RGB_MATRIX_ENABLE=no`. Arguments after the filter go to `qmk compile`. Plain `qmk compile` outside a mise shell uses a shared build directory and can fail on stale dependency files from another worktree.
 
 ### Host test
 
@@ -80,7 +80,7 @@ To add a host test for crkbd key logic:
 
 Each run writes a new directory:
 
-- `build-all.sh`: `summary.txt` (one line for each target), one full compile log for each target, `commit`, `dirty` (`git status --short`).
+- `build-all.sh`: `summary.txt` (one line for each target), one full compile log for each target, `commit`, `dirty` (`git status --short`), `options` (`THEME` and the extra `qmk compile` arguments).
 - `run-test.sh`: `build.log`, `test.log` (gtest output), `result.xml` (JUnit), `commit`.
 
 Proof standards:

@@ -9,7 +9,7 @@ The crkbd has three base layers: TYPING (Colemak-DH), GAMING (Colemak-DH with pl
 - `tri-gaming`: GAMING_EXT + NAV gives UTIL on GAMING and WASD.
 - `numpad-lock`: `LCK_NMP` locks NUMPAD on. A second tap unlocks it.
 - `rgb-indicator`: the layer indicator follows the layer (yellow SYM, spring green NAV, pink UTIL, coral NUMPAD, purple GAMING_EXT, red GAMING and WASD).
-- `boot-default`: after a power cycle, the base layer is TYPING, with RGB on and with RGB off.
+- `boot-default`: after a power cycle, the base layer is TYPING, in firmware built with and without RGB matrix (`keyboard_post_init_user` sets it outside `#ifdef RGB_MATRIX_ENABLE`).
 
 ## How to get to it (user POV)
 
@@ -26,7 +26,7 @@ Preconditions:
 - Hardware steps only: the firmware under test is on the keyboard (refer to [hardware-flash.md](./hardware-flash.md)).
 - Hardware steps only: the underglow layer indicator is on (`RGB_UND` toggles it).
 
-- **Host test.** Run `.claude/skills/verify/scripts/run-test.sh crkbd_keys 'Layers.*'`. Output ends with `[  PASSED  ] 11 tests.` and `status=0`.
+- **Host test.** Run `.claude/skills/verify/scripts/run-test.sh crkbd_keys 'Layers.*'`. Output shows `status=0` and ends with `[  PASSED  ] 11 tests.`
 
   | Sub-feature | Test |
   | --- | --- |
