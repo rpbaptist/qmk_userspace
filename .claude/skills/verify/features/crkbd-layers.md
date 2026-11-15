@@ -21,7 +21,8 @@ Preconditions:
 
 - `qmk_firmware/tests` has no `rpbaptist_crkbd_keys` directory.
 - Source: `layer_state_set_user` and `process_record_user` in `keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`. Test: `tests/crkbd_keys/test_layers.cpp`.
-- Hardware steps only: the firmware under test is on the keyboard (refer to [hardware-flash.md](./hardware-flash.md)), and the underglow layer indicator is on (`RGB_UND` toggles it).
+- Hardware steps only: the firmware under test is on the keyboard (refer to [hardware-flash.md](./hardware-flash.md)).
+- Hardware steps only: the underglow layer indicator is on (`RGB_UND` toggles it).
 
 - **Host test.** Run `.claude/skills/verify/scripts/run-test.sh crkbd_keys 'Layers.*'`. Output ends with `[  PASSED  ] 7 tests.` and `status=0`.
 

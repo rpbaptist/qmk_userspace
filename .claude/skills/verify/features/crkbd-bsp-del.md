@@ -18,9 +18,17 @@ Preconditions:
 
 - `qmk_firmware/tests` has no `rpbaptist_crkbd_keys` directory.
 - Source: `BSP_DEL` in `process_record_user` in `keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`. Test: `tests/crkbd_keys/test_bsp_del.cpp`.
-- Hardware steps only: the firmware under test is on the keyboard (refer to [hardware-flash.md](./hardware-flash.md)), and the OLED on the master half shows `TYPE`.
+- Hardware steps only: the firmware under test is on the keyboard (refer to [hardware-flash.md](./hardware-flash.md)).
+- Hardware steps only: the OLED on the master half shows `TYPE`.
 
-- **Host test.** Run `.claude/skills/verify/scripts/run-test.sh crkbd_keys 'BspDel.*'`. Output ends with `[  PASSED  ] 3 tests.` and `status=0`. `TapSendsBackspace` covers `bsp`, `OneShiftSendsDeleteWithoutShift` covers `del-one-shift`, and `TwoShiftsSendShiftDelete` covers `del-two-shift`.
+- **Host test.** Run `.claude/skills/verify/scripts/run-test.sh crkbd_keys 'BspDel.*'`. Output ends with `[  PASSED  ] 3 tests.` and `status=0`.
+
+  | Sub-feature | Test |
+  | --- | --- |
+  | `bsp` | `TapSendsBackspace` |
+  | `del-one-shift` | `OneShiftSendsDeleteWithoutShift` |
+  | `del-two-shift` | `TwoShiftsSendShiftDelete` |
+
 - **Test catches defects.** Comment out `del_mods(saved_mods);` in `key_behaviour.c`. Run the host test. `OneShiftSendsDeleteWithoutShift` fails. Restore with `git checkout -- keyboards/crkbd/keymaps/rpbaptist/key_behaviour.c`.
 - **Build.** Run `.claude/skills/verify/scripts/build-all.sh crkbd`. Shows `OK`.
 - **Backspace.** Ask the user to type `abc` in a text field and tap the key. The field shows `ab`.

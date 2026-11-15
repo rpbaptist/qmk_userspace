@@ -33,5 +33,4 @@ Preconditions:
 
 - The test keymap has only the positions that the tests press. If you add a test that presses another position, map it on each layer that can be active. Otherwise the fixture prints `no key is mapped for layer N`.
 - The test uses `TAPPING_TERM` and `ONESHOT_TIMEOUT` from the keymap `config.h`. If those change, the tests follow. Do not hardcode milliseconds.
-- The tri-layer with `GAMING_EXT` and NAV has its own tests. Refer to [crkbd-layers.md](./crkbd-layers.md).
 - The harness does not have debounce. On the keyboard, `DEBOUNCE 20` (`asym_eager_defer_pk`) makes very fast taps longer.
