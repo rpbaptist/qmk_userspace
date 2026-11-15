@@ -23,7 +23,7 @@ Preconditions:
 - **All maintained keymaps.** Run `.claude/skills/verify/scripts/build-all.sh`. It builds crkbd, Iris and CU7 (`rpbaptist`). Each line shows `OK`, `warnings=0` and the size. The exit code is 0.
 - **One keyboard.** Run `.claude/skills/verify/scripts/build-all.sh crkbd`. Only the crkbd line shows.
 - **Size change.** Run `build-all.sh crkbd` on the change, then on the base commit in a worktree. Compare the free bytes. Do not use an old number as the baseline; build the base commit.
-- **Themes.** For each theme, run `THEME=<theme> qmk --no-color compile -kb crkbd/rev1 -km rpbaptist`. Each shows `firmware size is fine`. `awaken` is the largest. An unknown name gives the same size as the default theme.
+- **Themes.** For each theme, run `THEME=<theme> qmk --no-color compile -kb crkbd/rev1 -km rpbaptist`. Each shows `firmware size is fine`. Each theme has the same size, because each font array has the same length. An unknown name gives the same size as the default theme.
 - **Proof.** Quote the `summary.txt` lines and give the evidence path.
 
 ## Gotchas
