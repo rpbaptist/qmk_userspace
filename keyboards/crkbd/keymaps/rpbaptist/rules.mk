@@ -63,7 +63,7 @@ ifeq ($(strip $(THEME)), awaken)
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
-	SRC += rgb.c
+	SRC += rgb.c rgb_effect.c rgb_effect_engine_qmk.c
 endif
 
 ifeq ($(strip $(OLED_ENABLE)), yes)

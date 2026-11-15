@@ -79,13 +79,8 @@ void render_status(void) {
     oled_write_P(PSTR("\n"), false);
 
     if (rgb_matrix_config.enable) {
-        if (user_config.rgb_matrix_idle_anim) {
-            oled_write_P(rgb_matrix_anim_oled_text(user_config.rgb_matrix_active_mode), false);
-            oled_write_P(rgb_matrix_anim_oled_text(user_config.rgb_matrix_idle_mode), false);
-        } else {
-            oled_write_P(PSTR("\n"), false);
-            oled_write_P(rgb_matrix_anim_oled_text(rgb_matrix_get_mode()), false);
-        }
+        oled_write_P(rgb_effect_label_upper(), false);
+        oled_write_P(rgb_effect_label_lower(), false);
     } else {
         oled_write_P(PSTR("\n"), false);
         oled_write_P(PSTR("\n"), false);
@@ -99,7 +94,7 @@ bool oled_task_user(void) {
     } else {
         render_crkbd_logo();
 #ifdef RGB_MATRIX_ENABLE
-        if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == user_config.rgb_matrix_idle_mode) {
+        if (rgb_effect_is_idle()) {
             oled_scroll_left(); // Turns on scrolling
         } else {
             oled_scroll_off();

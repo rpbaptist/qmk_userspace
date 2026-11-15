@@ -39,4 +39,5 @@ Each feature file starts with an H1 title and one paragraph that describes the u
 - [crkbd SFT_EXT key](./crkbd-sft-ext.md): gaming thumb key, SHIFT on hold, one-shot GAMING_EXT on double tap. Host-tested.
 - [crkbd BSP_DEL key](./crkbd-bsp-del.md): SHIFT + BACKSPACE gives DEL. Host-tested.
 - [crkbd layers](./crkbd-layers.md): TYPING, GAMING and WASD base layers, tri-layer UTIL, and NUMPAD lock. Host-tested, except `rgb-indicator`, the OLED and `boot-default`.
+- [crkbd RGB idle animation](./crkbd-rgb-effect.md): active and idle effects, idle timeout, profiles, cycle keys. Host-tested, except the OLED, the layer indicator and split sync.
 - [Hardware flash](./hardware-flash.md): put a build on the keyboard and get the user's check.

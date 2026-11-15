@@ -113,7 +113,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TYPING:
             if (record->event.pressed) {
 #ifdef RGB_MATRIX_ENABLE
-                rgb_matrix_set_typing_defaults();
+                rgb_effect_set_profile(&rgb_effect_typing_profile);
 #endif
                 default_layer_set(1U << _COLEMAKDH);
             }
@@ -121,7 +121,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case GAMING:
             if (record->event.pressed) {
 #ifdef RGB_MATRIX_ENABLE
-                rgb_matrix_set_gaming_defaults();
+                rgb_effect_set_profile(&rgb_effect_gaming_profile);
 #endif
                 default_layer_set(1U << _GAMING);
             }
@@ -129,7 +129,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case WASD:
             if (record->event.pressed) {
 #ifdef RGB_MATRIX_ENABLE
-                rgb_matrix_set_gaming_defaults();
+                rgb_effect_set_profile(&rgb_effect_gaming_profile);
 #endif
                 default_layer_set(1U << _WASD);
             }

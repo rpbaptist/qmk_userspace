@@ -58,13 +58,13 @@ I took a big inspiration from Drashna's RGB configuration and tweaked it.
 
 These keys work only with `RGB_MATRIX_ENABLE = yes`. If you build with RGB matrix off, the keys stay on the `UTIL` layer but do nothing.
 
-- `RGB_UND`: Toggles underglow indicators on and off. Each layer has its own color.
-- `RGB_IDL`: This will enable/disable idle mode. By default an "active" RGB mode will be used. When the idle timeout has exceeded the secondary animation will be activated, which is a passive animation. When switching to `GAMING` layer the timeout will be reduced and the idle animation changed to `RGB_MATRIX_RAINBOW_PINWHEELS`.
-   When disabling idle mode, the current idle animation will be activated.
-   On idling, on idling, the underglow layer indication will be deactivated and the animation RGB will be set instead.
-- `RGB_ATG`: Cycles through three active modes: `RGB_MATRIX_SOLID_REACTIVE_SIMPLE` -> `RGB_MATRIX_TYPING_HEATMAP` -> `RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS`
-- `RGB_PST`: Cycles through three passive modes: `RGB_MATRIX_SOLID_COLOR` -> `RGB_MATRIX_BREATHING` -> `RGB_MATRIX_CYCLE_ALL`
-- `RGB_PCT`: Cycles through two, more colorful, passive modes: `RGB_MATRIX_RAINBOW_PINWHEELS` -> `RGB_MATRIX_CYCLE_LEFT_RIGHT`
+- `RGB_UND`: Turns the layer indicator on and off. Each layer has its own color.
+- `RGB_IDL`: Turns idle animation on and off. With idle animation on, the active effect shows while you type. After the idle timeout, the idle effect shows. The gaming profile (`GAMING`, `WASD`) uses a shorter timeout and `RGB_MATRIX_RAINBOW_PINWHEELS` as the idle effect.
+   When you turn idle animation off, the idle effect shows.
+   While the idle effect shows, the layer indicator is hidden.
+- `RGB_ATG`: Cycles through three active effects: `RGB_MATRIX_SOLID_REACTIVE_SIMPLE` -> `RGB_MATRIX_TYPING_HEATMAP` -> `RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS`
+- `RGB_PST`: Cycles through three idle effects: `RGB_MATRIX_SOLID_COLOR` -> `RGB_MATRIX_BREATHING` -> `RGB_MATRIX_CYCLE_ALL`
+- `RGB_PCT`: Cycles through two, more colorful, idle effects: `RGB_MATRIX_RAINBOW_PINWHEELS` -> `RGB_MATRIX_CYCLE_LEFT_RIGHT`
 
 ## Timings
 
