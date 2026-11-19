@@ -16,7 +16,7 @@ Read [features/README.md](features/README.md) for the feature map. Each feature 
 
 ## Layout
 
-- `qmk_firmware`: `qmk config -ro user.qmk_home` (now `~/code/qmk_firmware`, QMK 0.34.x). The overlay is set: `user.overlay_dir` = this repo.
+- `qmk_firmware`: `qmk config -ro user.qmk_home` (now `~/code/personal/qmk_firmware`, QMK 0.34.x). The overlay is set: `user.overlay_dir` = this repo.
 - Keymaps: `keyboards/<kb>/keymaps/<km>/`.
 - Host tests: `tests/<name>/` in this repo, with `test.mk`, `config.h` and `test_*.cpp`. The names cannot contain `-`.
 - Helpers: `.claude/skills/verify/scripts/`. All are executable. Run them from any directory in the repo.
