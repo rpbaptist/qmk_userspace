@@ -16,9 +16,20 @@ class BspDel : public TestFixture {
     KeymapKey bsp_del = KeymapKey(_COLEMAKDH, 0, 0, BSP_DEL);
     KeymapKey lsft    = KeymapKey(_COLEMAKDH, 1, 0, KC_LSFT);
     KeymapKey rsft    = KeymapKey(_COLEMAKDH, 2, 0, KC_RSFT);
+    KeymapKey lctl    = KeymapKey(_COLEMAKDH, 3, 0, KC_LCTL);
 
     void SetUp() override {
-        set_keymap({bsp_del, lsft, rsft});
+        set_keymap({bsp_del, lsft, rsft, lctl});
+    }
+
+    void press(KeymapKey &key) {
+        key.press();
+        run_one_scan_loop();
+    }
+
+    void release(KeymapKey &key) {
+        key.release();
+        run_one_scan_loop();
     }
 };
 
@@ -52,7 +63,7 @@ TEST_F(BspDel, OneShiftSendsDeleteWithoutShift) {
     VERIFY_AND_CLEAR(driver);
 }
 
-TEST_F(BspDel, TwoShiftsSendShiftDelete) {
+TEST_F(BspDel, TwoShiftsSendShiftBackspace) {
     TestDriver driver;
     InSequence s;
 
@@ -64,7 +75,7 @@ TEST_F(BspDel, TwoShiftsSendShiftDelete) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    EXPECT_REPORT(driver, (KC_LSFT, KC_RSFT, KC_DEL));
+    EXPECT_REPORT(driver, (KC_LSFT, KC_RSFT, KC_BSPC));
     EXPECT_REPORT(driver, (KC_LSFT, KC_RSFT));
     tap_key(bsp_del);
     VERIFY_AND_CLEAR(driver);
@@ -75,5 +86,71 @@ TEST_F(BspDel, TwoShiftsSendShiftDelete) {
     run_one_scan_loop();
     rsft.release();
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(BspDel, CtrlSendsCtrlBackspace) {
+    TestDriver driver;
+    InSequence s;
+
+    EXPECT_REPORT(driver, (KC_LCTL));
+    press(lctl);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_LCTL, KC_BSPC));
+    EXPECT_REPORT(driver, (KC_LCTL));
+    tap_key(bsp_del);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_EMPTY_REPORT(driver);
+    release(lctl);
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(BspDel, CtrlAndOneShiftSendCtrlDelete) {
+    TestDriver driver;
+    InSequence s;
+
+    EXPECT_REPORT(driver, (KC_LCTL));
+    EXPECT_REPORT(driver, (KC_LCTL, KC_RSFT));
+    press(lctl);
+    press(rsft);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_LCTL, KC_DEL));
+    EXPECT_REPORT(driver, (KC_LCTL, KC_RSFT));
+    tap_key(bsp_del);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_LCTL));
+    EXPECT_EMPTY_REPORT(driver);
+    release(rsft);
+    release(lctl);
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(BspDel, CtrlAndTwoShiftsSendCtrlShiftBackspace) {
+    TestDriver driver;
+    InSequence s;
+
+    EXPECT_REPORT(driver, (KC_LCTL));
+    EXPECT_REPORT(driver, (KC_LCTL, KC_LSFT));
+    EXPECT_REPORT(driver, (KC_LCTL, KC_LSFT, KC_RSFT));
+    press(lctl);
+    press(lsft);
+    press(rsft);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_LCTL, KC_LSFT, KC_RSFT, KC_BSPC));
+    EXPECT_REPORT(driver, (KC_LCTL, KC_LSFT, KC_RSFT));
+    tap_key(bsp_del);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_LCTL, KC_RSFT));
+    EXPECT_REPORT(driver, (KC_LCTL));
+    EXPECT_EMPTY_REPORT(driver);
+    release(lsft);
+    release(rsft);
+    release(lctl);
     VERIFY_AND_CLEAR(driver);
 }

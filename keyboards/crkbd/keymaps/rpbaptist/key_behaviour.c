@@ -144,15 +144,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case BSP_DEL:
             if (record->event.pressed) {
-                uint8_t saved_mods = get_mods() & MOD_MASK_SHIFT;
+                uint8_t shift = get_mods() & MOD_MASK_SHIFT;
 
-                if (saved_mods == MOD_MASK_SHIFT) { // Two SHIFT keys: send SHIFT + DEL
+                if (shift && shift != MOD_MASK_SHIFT) { // One SHIFT side: send DEL without SHIFT
+                    del_mods(shift);
                     register_code(KC_DEL);
-                } else if (saved_mods) { // One SHIFT key: send DEL without SHIFT
-                    del_mods(saved_mods);
-                    register_code(KC_DEL);
-                    add_mods(saved_mods);
-                } else {
+                    add_mods(shift);
+                } else { // No SHIFT or both SHIFT sides: send BACKSPACE with the held mods
                     register_code(KC_BSPC);
                 }
             } else {
